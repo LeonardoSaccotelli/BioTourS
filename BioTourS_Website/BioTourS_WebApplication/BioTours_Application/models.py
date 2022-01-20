@@ -1,3 +1,8 @@
+import sys
+from io import BytesIO
+
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.formats import date_format
@@ -132,3 +137,21 @@ class File_Sighting(models.Model):
         sighting_obj = Sighting.objects.get(pk=self.sighting.pk)
         # return the port and date
         return str(sighting_obj)
+
+    def save(self, *args, **kwargs):
+        if self.file.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+            im = Image.open(self.file)
+            output = BytesIO()
+
+            original_width, original_height = im.size
+            aspect_ratio = round(original_width / original_height)
+            desired_height = 800  # Edit to add your desired height in pixels
+            desired_width = desired_height * aspect_ratio
+
+            im = im.resize((desired_width, desired_height))
+            im.save(output, format='JPEG', quality=90)
+
+            self.file = InMemoryUploadedFile(output, 'FileField', "%s.jpg" % self.file.name.split('.')[0], 'image/jpeg',
+                                             sys.getsizeof(output), None)
+
+            super(File_Sighting, self).save(*args, **kwargs)
