@@ -1,0 +1,9 @@
+/*==============================================
+        CSS FOR SHOW DETAILS SIGHTING TEMPLATE
+===============================================*/
+#container-detail-style{
+    border:red solid;
+    padding:2rem;
+    margin-bottom:2rem;
+    margin-top:2rem;
+}

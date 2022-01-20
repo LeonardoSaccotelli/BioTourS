@@ -1,0 +1,222 @@
+{% extends 'BioToursApplication/common_template.html' %}
+{% load static %}
+
+<!-- Override the title of the template -->
+{% block title %}Home | BioTourS{% endblock %}
+
+<!-- Extend the head section, adding links, styles ad script of this template only-->
+{% block extra_head %}
+    {{ block.super }}
+    <link href="{% static 'BioTours_Application/css/index/index-style.css' %}" rel="stylesheet" type="text/css">
+
+    <style>
+
+        /* Adding image to the carousel */
+        .carousel-item:nth-child(1) {
+            background-image: url({% static 'BioTours_Application/media/index/slider/slider-0.JPEG' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+        .carousel-item:nth-child(2) {
+            background-image: url({% static 'BioTours_Application/media/index/slider/slider-1.JPG' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+        .carousel-item:nth-child(3) {
+            background-image: url({% static 'BioTours_Application/media/index/slider/slider-2.JPEG' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .carousel-item:nth-child(4) {
+            background-image: url({% static 'BioTours_Application/media/index/slider/slider-5.JPG' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .carousel-item:nth-child(5) {
+            background-image: url({% static 'BioTours_Application/media/index/slider/slider-4.JPEG' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!--------------------------------------------------------
+                    Main
+    --------------------------------------------------------->
+    <main>
+        <!--------------------------------------------------------
+                        Introduction
+        --------------------------------------------------------->
+
+        <div class="container container-header">
+            <h1 class="fw-light primary-text-color"> Project Summary</h1>
+            <p class="lead primary-text-color ">BioTourS aims at introducing best practices in sustainable cross-border
+                tourism, tackling new challenges in environmental and marine safeguard as well as preserving the natural
+                heritage of the Adriatic-Ionian area. The main goal is to involve youngsters in cross-border touristic
+                activities, so as to raise awareness on cetacean conservation. By combining high technological tools with
+                standardized survey techniques and direct involvement of youth in Citizen Science activities, BioTourS will
+                improve knowledge on cetaceans which is currently heterogeneous and defective in the programme area.
+                The main output is the creation of a Citizen Science tourism model, for expanding science knowledge
+                on dolphin conservation and tourism management....
+                <a href="{% url 'about' %}#about-introduction">Read more</a></p><br>
+        </div>
+
+        <!--------------------------------------------------------
+                    Slider
+        --------------------------------------------------------->
+        <div class="container" style="padding-bottom: 1rem; margin-bottom:1rem;">
+            <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-mdb-target="#introCarousel" data-mdb-slide-to="0" class="active"></li>
+                    <li data-mdb-target="#introCarousel" data-mdb-slide-to="1"></li>
+                    <li data-mdb-target="#introCarousel" data-mdb-slide-to="2"></li>
+                    <li data-mdb-target="#introCarousel" data-mdb-slide-to="3"></li>
+                    <li data-mdb-target="#introCarousel" data-mdb-slide-to="4"></li>
+                </ol>
+
+                <!-- Inner -->
+                <div class="carousel-inner">
+                    <!-- Single item -->
+                    <div class="carousel-item active">
+                        <div class="mask">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-white text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single item -->
+                    <div class="carousel-item">
+                        <div class="mask">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-white text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single item -->
+                    <div class="carousel-item">
+                        <div class="mask">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-white text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="mask">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-white text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="mask">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-white text-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inner -->
+
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#introCarousel" role="button" data-mdb-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#introCarousel" role="button" data-mdb-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!--------------------------------------------------------
+                        Some other content
+        --------------------------------------------------------->
+        <div class="container container-content">
+            <div class="row d-flex flex-wrap ">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2 class="fw-light primary-text-color">Activities</h2>
+                    <p class="lead primary-text-color">Youth camps activities were carried out over a 25-day period
+                        (from 4th October to 29th October) where four target habitats were identified:
+                        the Adriatic coast of Bari; Termoli in Italy; the Bay of Kotor in Montenegro and
+                        Albanian coastlines. The camps focused on retrieving information (abundance, behaviour,
+                        group size, sighting location) on cetaceans using thematic equipment such as echo sounders,
+                        photo-video recording systems in HD, and hydrophones for bioacoustics studies.
+                        Moreover, information about anthropogenic impact data (tourism activities, fishery practices,
+                        habitat degradation, marine litter, marine traffic) were also collected...
+                        <a href="{% url 'about' %}#about-par1">Read more</a></p>
+                </div>
+            </div>
+            <div class="row d-flex flex-wrap align-items-center g-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-sm-1 order-md-1 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-activities.png' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-sm-2 order-md-2 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-activities-2.png' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="container container-content" >
+            <div class="row d-flex flex-wrap">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 order-1 order-sm-1 order-md-1 order-lg-1">
+                    <h2 class="fw-light primary-text-color">Sightings</h2>
+                    <p class="lead primary-text-color">During the project activities occurred 6 sightings of cetaceans:
+                        3 sightings during the activities of the Youth Camps and 3 sightings during the transfers
+                        from one venue the following. Three species were sighted: striped dolphin
+                        (Stenella coeruleoalba), bottlenose dolphin (Tursiops truncatus) and short-beaked common
+                        dolphin (Delphinus delphis). The observations and studies on the animals observed took place by
+                        actively involving participants of the Youth Camp activities, using the research instruments
+                        "Il Porto di Taranto" such as binoculars, hydrophones (PAM - passive acoustic monitoring and
+                        directional hydrophone), drones and cameras equipped with telephoto lenses...
+                        <a href="{% url 'about' %}#about-par2">Read more</a></p>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 order-2 order-sm-2 order-md-2 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-sightings.JPG' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container container-content">
+            <div class="row d-flex flex-wrap">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 order-1 order-sm-1 order-md-1 order-lg-2">
+                    <h2 class="fw-light primary-text-color">Proposals for the future</h2>
+                    <p class="lead primary-text-color">The important number of sightings, the preliminary scientific
+                        data collected relating to the presence of cetaceans in the areas explored, the active
+                        participation of young people and the involvement of local stakeholders demonstrates the
+                        concrete possibility of duplicating the sustainable tourism model that combines the study and
+                        protection of cetaceans and the marine ecosystem, thus achieving the goal of the" BioTourS
+                        "project - BIOdiversity and TOURism Strategy to protect cetaceans. It is important to underline
+                        that replicating such model is articulated. It is not enough to "copy and paste" what over the
+                        years Jonian Dolphin Conservation has achieves in the Gulf of Taranto. The reason is simple,
+                        so far the successful achievements of LP are based on Citizen Science actions...
+                        <a href="{% url 'about' %}#about-par3">Read more</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,18 @@
+.gradient-custom-color{
+    background: linear-gradient(135deg, #1976D2 0%, #1E88E5 100%);
+}
+
+.gradient-custom-color-2{
+    background: linear-gradient(135deg, #FFFFFF 0%, #BBDEFB 100%);
+}
+
+.dark-primary-color-1  { background: #1976D2; }
+.dark-primary-color-2  { background: #1e88e5; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #536DFE; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
+

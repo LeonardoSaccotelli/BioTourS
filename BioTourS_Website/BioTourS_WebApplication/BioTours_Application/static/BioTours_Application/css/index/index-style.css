@@ -1,0 +1,79 @@
+/*==============================================
+        CSS FOR ABOUT TEMPLATE
+===============================================*/
+.container-content{
+    /*border: crimson solid;*/
+    padding:1rem;
+    margin-top: 1rem ;
+    margin-bottom: 1rem;
+}
+
+/*--------------------------------------------------
+       Carousel and media query for carousel
+-------------------------------------------------- */
+
+/*screen width <320*/
+@media (max-width: 320px){
+    #introCarousel {
+        margin-top:0.5rem;
+    }
+    #introCarousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item.active {
+        height: 40vh;
+    }
+}
+
+
+/*screen width >=320 and <=425*/
+@media (min-width: 320px) and (max-width: 425px){
+    #introCarousel {
+        margin-top:1rem;
+    }
+    #introCarousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item.active {
+        height: 45vh;
+    }
+}
+
+/*screen width >425 and <768*/
+@media (min-width: 425px) and (max-width: 768px){
+    #introCarousel {
+        margin-top:1rem;
+    }
+    #introCarousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item.active {
+        height: 50vh;
+    }
+}
+
+/*screen width >768 and <1024*/
+@media (min-width: 768px) and (max-width: 1024px){
+    #introCarousel {
+        margin-top:1rem;
+    }
+    #introCarousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item.active {
+        height: 60vh;
+    }
+}
+
+/*screen width >1024*/
+@media (min-width: 1024px) {
+    #introCarousel {
+        margin-top:1rem;
+    }
+    #introCarousel,
+    .carousel-inner,
+    .carousel-item,
+    .carousel-item.active {
+        height:70vh;
+    }
+}

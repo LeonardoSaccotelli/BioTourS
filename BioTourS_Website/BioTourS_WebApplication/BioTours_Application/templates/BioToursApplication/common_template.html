@@ -1,0 +1,221 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="BioTourS platform to collect sightings data">
+    <meta name="author" content="Leonardo Saccotelli">
+
+    <!-- Define only the link, style or script which are used in
+    all the template, the other will be defined in their own template extending this block-->
+    {% block extra_head %}
+
+        <!-- Bootstrap CSS
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet"/>
+
+        <!-- my common CSS -->
+        <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/media-query-definition.css' %}"  type="text/css">
+        <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/palette.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/common-style.css' %}" >
+
+        <!-- icon tab -->
+        <link rel="icon" href="{% static 'BioTours_Application/media/common/icona.ico' %}">
+    {% endblock %}
+
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    <!--------------------------------------------------------
+                        Navigation
+    --------------------------------------------------------->
+    <nav class="navbar navbar-expand-md navbar-dark lead gradient-custom-color">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                BioTourS
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'insertSighting' %}">Insert sighting</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            Show sightings
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'showSighting' %}">Table Recap</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mapViewer' %}">Map Viewer</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--------------------------------------------------------
+                    Header
+    --------------------------------------------------------->
+    <header class="logo-section">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center text-center">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-4 order-2 order-sm-2 order-md-1 order-lg-1">
+                    <a href="https://www.joniandolphin.it/" title="Jonian Dolphin Conservation" target="_blank">
+                        <img src="{% static 'BioTours_Application/media/common/Jonian-Logo.jpg' %}"
+                             class="jon-logo" alt="Jonian-Logo">
+                    </a>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 order-1 order-sm-1 order-md-2 order-lg-2">
+                    <a href="https://biotours.italy-albania-montenegro.eu/" title="Interreg - IPA CBC" target="_blank">
+                        <img src="{% static 'BioTours_Application/media/common/Interreg-Logo.jpg' %}"
+                             class="cnr-interreg-logo" alt="Interreg-Logo">
+                    </a>
+                </div>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-4 order-3 order-sm-3 order-md-3 order-md-3 order-lg-3">
+                    <a href="https://www.stiima.cnr.it/" title="CNR-STIIMA" target="_blank">
+                        <img src="{% static 'BioTours_Application/media/common/CNR-logo.jpg' %}"
+                             class="cnr-interreg-logo" alt="CNR-Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <hr class="divider divider-color">
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!--------------------------------------------------------
+                    Footer
+    --------------------------------------------------------->
+    <!-- Footer -->
+    <footer class="text-center text-lg-start light-primary-color primary-text-color">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4">
+            <!-- Left -->
+
+        </section>
+
+        <!-- Section: Social media -->
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-4">
+                        <!-- Content -->
+                        <p>
+                            This website has been co-funded by the European Union through the Instrument for
+                            Pre-Accession Assistance (IPA II) and the countries of the Programme.
+                        </p>
+
+                        <hr class="divider divider-color">
+                        <div class="me-5 d-none d-lg-block">
+                            <span>Get connected with us on social networks:</span>
+                        </div>
+                        <div>
+                            <a title="Facebook: external page" aria-label="Facebook" target="_blank"
+                               href="https://www.facebook.com/biotours.project/" class="me-4 text-reset">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a title="Twitter: external page" aria-label="Twitter" target="_blank"
+                               href="https://twitter.com/BiotoursP" class="me-4 text-reset">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a title="Instagram: external page" aria-label="Instagram" target="_blank"
+                               href="https://www.instagram.com/biotours.project/" class="me-4 text-reset">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Project
+                        </h6>
+                        <p>
+                            <a class="text-reset" href="{% url 'index' %}">Home</a>
+                        </p>
+                        <p>
+                            <a class="text-reset" href="{% url 'about' %}">About</a>
+                        </p>
+                        <p>
+                            <a class="text-reset" href="{% url 'insertSighting' %}">Insert sighting</a>
+                        </p>
+                        <p>
+                            <a class="text-reset" href="{% url 'showSighting' %}">Table Recap</a>
+                        </p>
+                        <p>
+                            <a class="text-reset" href="{% url 'mapViewer' %}">Map Viewer</a>
+                        </p>
+                        <p>
+                            <a class="text-reset" href="{% url 'gallery' %}">Gallery</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Contacts
+                        </h6>
+                        <p><i class="fas fa-building me-2"></i>Jonian Dolphin Conservation</p>
+                        <p><i class="fas fa-home me-1"></i> Viale Virgilio 102 - Taranto (IT)</p>
+                        <p><i class="fas fa-envelope me-2"></i>areaprogetti[at]joniandolphin.it</p>
+                        <p><i class="fab fa-chrome me-2"></i>
+                            <a href="https://www.joniandolphin.it/ " title="website" target="_blank"
+                               class="primary-text-color">https://www.joniandolphin.it/ </a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4 text-primary-color gradient-custom-color">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="">LS</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    {% block extra_js %}
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+         crossorigin="anonymous"></script>-->
+        <!-- MDB -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% endblock extra_js %}
+</body>
+</html>

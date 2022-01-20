@@ -1,0 +1,90 @@
+{% extends 'BioToursApplication/common_template.html' %}
+{% load static %}
+
+<!-- Override the title of the template -->
+{% block title %}Insert Sighting | BioTourS{% endblock %}
+
+<!-- Extend the head section, adding links, styles ad script of this template only-->
+{% block extra_head %}
+    {{ block.super }}
+    <link href="{% static 'BioTours_Application/css/insert-sighting/insert-sighting-style.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+{% block content %}
+
+<!--------------------------------------------------------
+                Main
+--------------------------------------------------------->
+<main>
+    <div class="container container-header">
+        <h1 class="fw-light primary-text-color"> Insert a new sighting</h1>
+        <p class="lead primary-text-color">Insert a new sighting and help us to grow our catalogue. You can fill the form below or you can just upload images or videos.</p>
+    </div>
+
+    <div class="container" style="padding-top:0.5rem;padding-bottom:2rem;">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                 {% if submitted %}
+                     {% if accepted_files %}
+                         <div class="alert alert-success" role="alert">
+                             <b>The following files have been uploaded correctly:</b><hr>
+                             <ul>
+                                 {% for accepted_file_name in accepted_files_name %}
+                                     <li>{{ accepted_file_name }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                     {% endif %}
+                     <!--<p>
+                        {{ same_sighting }}
+                         {{ different_sighting }}
+                         {{ distance_matrix }}
+                     </p>-->
+                     <p>
+                     {{ list2 }}
+                     </p>
+
+
+                     {% if rejected_files %}
+                         <div class="alert alert-warning" role="alert">
+                             <b>The following files have not been uploaded because they refer
+                                 to different sighting.<br>Please load again the following files:</b><hr>
+                             <ul>
+                                 {% for rejected_file_name in rejected_files_name %}
+                                     <li>{{ rejected_file_name }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                     {% endif %}
+                 {% endif %}
+
+                <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data"
+                      style="border:1px solid #2196F3;border-radius:10px;padding:1rem;margin:1rem;
+                      background: linear-gradient(135deg, #FFFFFF 0%, #BBDEFB 350%);">
+                    {% csrf_token %}
+                    {{ form_sighting.as_p }}
+                    {{ form_file_sighting.as_p }}
+
+                    <!-- container for input type[submit]-->
+                    <div class="container">
+                        <div class="row" style="padding:0.5rem 0;">
+                            <input type="submit" value="Submit" class="btn btn-lg gradient-custom-color text-primary-color" id="submit-btn-insert-sighting">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+   </main>
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        $(".alert").delay(5000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+    </script>
+{% endblock %}

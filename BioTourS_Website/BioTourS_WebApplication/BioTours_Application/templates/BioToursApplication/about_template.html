@@ -1,0 +1,210 @@
+{% extends 'BioToursApplication/common_template.html' %}
+{% load static %}
+
+<!-- Override the title of the template -->
+{% block title %}About | BioTourS{% endblock %}
+
+<!-- Extend the head section, adding links, styles ad script of this template only-->
+{% block extra_head %}
+    {{ block.super }}
+    <link href="{% static 'BioTours_Application/css/about/about-style.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+    <!--------------------------------------------------------
+                    Main
+    --------------------------------------------------------->
+    <main>
+        <!--------------------------------------------------------
+                        Introduction
+        --------------------------------------------------------->
+        <div class="container container-header">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="fw-light primary-text-color"><a id="about-introduction">Project Summary</a></h1>
+                    <p class="lead primary-text-color">BioTourS aims at introducing best practices in sustainable
+                        cross-border tourism, tackling new challenges in environmental and marine safeguard as well as
+                        preserving the natural heritage of the Adriatic-Ionian area. The main goal is to involve
+                        youngsters in cross-border touristic activities, so as to raise awareness on cetacean
+                        conservation. By combining high technological tools with standardized survey techniques and
+                        direct involvement of youth in Citizen Science activities, BioTourS will improve knowledge on
+                        cetaceans which is currently heterogeneous and defective in the programme area. The main output
+                        is the creation of a Citizen Science tourism model, for expanding science knowledge on dolphin
+                        conservation and tourism management. Cross-border Youth Camps consisted in marine research
+                        activities for cetacean conservation using nautical equipment on board of Lead Partner (LP)
+                        Jonian Dolphin Conservation (JDC) Research Vessel “Il Porto di Taranto”.
+                        Cross-border Youth Camps further included educational and specialized workshops on land
+                        organized by LP in in each Project Partner territory whilst PPs were actively involved in
+                        logistic implementation in each Partner area. <br>BioTourS Project Partners are:
+                    </p>
+                    <ul class="lead primary-text-color">
+                        <li>Agjencia Kombëtare e Turizmit (Albania)</li>
+                        <li>Comune di Termoli (Italy)</li>
+                        <li>Inovaciono preduzetnički centar Tehnopolis (Montenegro)</li>
+                    </ul>
+                    <p class="lead primary-text-color">
+                        The activities involved 4 different target groups among youngsters (students, young researchers,
+                        people with disabilities, young tourism operators). For about a month the JDC research vessel
+                        operated in the South-Adriatic Sea in order to demonstrate, with the support and active
+                        involvement of Project Partners and local stakeholders, that it is possible to combine
+                        eco-tourism with direct scientific research on the topic of cetacean monitoring also in the area
+                        just as the JDC has been doing for a decade in the Gulf of Taranto with its citizen science
+                        program. The ultimate goal is sustainable tourism that respects and preserve the marine
+                        ecosystem.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------------------------
+                        Some other content
+        --------------------------------------------------------->
+
+        <div class="container container-content">
+            <div class="row d-flex flex-wrap align-items-center">
+                <h2 class="fw-light primary-text-color"><a id="about-par1">Activities</a></h2>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <p class="lead primary-text-color">Youth camps activities were carried out over a 25-day period
+                        (from 4th October to 29th October) where four target habitats were identified:
+                        the Adriatic coast of Bari; Termoli in Italy; the Bay of Kotor in Montenegro and
+                        Albanian coastlines. The camps focused on retrieving information (abundance, behaviour,
+                        group size, sighting location) on cetaceans using thematic equipment such as echo sounders,
+                        photo-video recording systems in HD, and hydrophones for bioacoustics studies.
+                        Moreover, information about anthropogenic impact data (tourism activities, fishery practices,
+                        habitat degradation, marine litter, marine traffic) were also collected.
+                    </p>
+                </div>
+            </div>
+            <div class="row d-flex flex-wrap align-items-center g-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-sm-1 order-md-1 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-activities.png' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-sm-2 order-md-2 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-activities-2.png' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+            </div>
+
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <br>
+                    <h4 class="fw-light primary-text-color"><a id="about-par1"><i>Bari</i></a></h4>
+                    <p class="lead primary-text-color">The Youth Camps in Bari was held from October 7th to
+                        October 9th 2021. The JDC team implemented 3 days of Youth Camps in total, involving 12 youth
+                        with autism, people with disabilities and their support staff. Unfortunately, due to adverse
+                        weather conditions dolphin watching and citizen science activities at sea were carried out only
+                        once on 7th October.<br> In Bari, two local stakeholders were actively involved in the
+                        activities:
+                    </p>
+                    <ul class="lead primary-text-color">
+                        <li>Cooperativa Dalla Luna ONLUS - organization looking after people with autism or with
+                            disabilities involving them with projects for their social inclusion</li>
+                        <li>Plana Sailing - sailing school</li>
+                    </ul>
+
+                    <br>
+                    <h4 class="fw-light primary-text-color"><a id="about-par1"><i>Termoli</i></a></h4>
+                    <p class="lead primary-text-color">The Youth Camps in Termoli took place on 13th October and 14th
+                        October 2021. The persisting adverse weather conditions did not allow “Il Porto di Taranto”
+                        to reach the venue. With the important support of the project partner, the Municipality of
+                        Termoli, two days of Youth Camps were organized in the harbour area.
+                        The JDC experts and the external expert of the Municipality of Termoli, Doctor Antonio Celona,
+                        implemented awareness and educational workshops to let young participants discover how citizen
+                        science projects work for the preservation of cetacean species.
+                        Moreover, on both days, the young participants could experience the Virtual Reality carried out
+                        by the Lead Partner giving the chance to young participants to discover thanks to the latest
+                        technological support, the world of the oceans.
+                    </p>
+
+                    <br>
+                    <h4 class="fw-light primary-text-color"><a id="about-par1"><i>Kotor</i></a></h4>
+                    <p class="lead primary-text-color">The Youth Camps in Kotor took place from 18th October to 20th
+                        October, 2021. Lead Partner working side by side with the Project Partner Tehnopolis implemented
+                        3 days of Youth Camps activities involving 16 young people (the same group was involved during
+                        the three days of activities), and thanks to the support of the local partner Univerzitet
+                        Crne Gore – Institut za biologiju mora.
+                    </p>
+
+                    <br>
+                    <h4 class="fw-light primary-text-color"><a id="about-par1"><i>Vlorë</i></a></h4>
+                    <p class="lead primary-text-color">The Youth Camps in Vlorë took place from 26th October to 28th
+                        October, 2021. Lead Partner implemented 3 days of Youth Camps working side by side with
+                        the project partner Albanian Tourism Agency. In each day of activity, JDC experts shared with
+                        guests on board the principles of the Interreg projects and gave the chance to the participants
+                        to take concretely part in the research activities, using the scientific equipment on board.
+                        Moreover, early in the afternoon of the last day, before the departure of the JDC Research
+                        Vessel from Vlorë to Taranto, young participants could experience the Virtual Reality to
+                        discover more about marine biology.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container container-content">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2 class="fw-light primary-text-color"><a id="about-par2">Sightings</a></h2>
+                    <p class="lead primary-text-color">During the project activities occurred 6 sightings of cetaceans:
+                        3 sightings during the activities of the Youth Camps and 3 sightings during the transfers
+                        from one venue the following. Three species were sighted: striped dolphin
+                        (Stenella coeruleoalba), bottlenose dolphin (Tursiops truncatus) and short-beaked common
+                        dolphin (Delphinus delphis).<br>
+                        The observations and studies on the animals observed took place by
+                        actively involving participants of the Youth Camp activities, using the research instruments
+                        "Il Porto di Taranto" such as binoculars, hydrophones (PAM - passive acoustic monitoring and
+                        directional hydrophone), drones and cameras equipped with telephoto lenses.
+                    </p>
+                </div>
+            </div>
+            <div class="row d-flex flex-wrap align-items-center g-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-sm-1 order-md-1 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-sightings.JPG' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-2 order-sm-2 order-md-2 order-lg-2">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/par-sightings-2.JPG' %}"
+                         class="img-fluid shadow-2-strong" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="container container-content">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2 class="fw-light primary-text-color"><a id="about-par3">Proposals for the future</a></h2>
+                    <p class="lead primary-text-color">The important number of sightings, the preliminary scientific
+                        data collected relating to the presence of cetaceans in the areas explored, the active
+                        participation of young people and the involvement of local stakeholders demonstrates the
+                        concrete possibility of duplicating the sustainable tourism model that combines the study and
+                        protection of cetaceans and the marine ecosystem, thus achieving the goal of the" BioTourS
+                        "project - BIOdiversity and TOURism Strategy to protect cetaceans. It is important to underline
+                        that replicating such model is articulated. It is not enough to "copy and paste" what over the
+                        years Jonian Dolphin Conservation has achieves in the Gulf of Taranto. The reason is simple,
+                        so far the successful achievements of LP are based on Citizen Science actions in other words
+                        involving citizens, students and tourists in monitoring free cetaceans in their natural
+                        environment. Such actions are strongly linked to the territory where the JDC is based that is
+                        Taranto and its Gulf, in the Ionian Sea. To achieve such goal it is necessary to carry out a
+                        detailed analysis of the territory, considering the socio-cultural context of the study area
+                        and its geographical and naturalistic peculiarities. On one hand proving the presence of
+                        cetaceans in the project areas of interest is not enough. This challenge is not intended to
+                        discourage a future attempt to replicate the study case because, as mentioned, the potential of
+                        duplicating it, as the data collected shows, is very concrete. On the other hand, this path of
+                        analysis aims to adapt the LP’s activities to the best in relation to the area of interest,
+                        taking into consideration a multiplicity of factors affecting both scientific, technical,
+                        economic and socio-cultural fabric of the study area.
+                    </p>
+                </div>
+            </div>
+            <!--<div class="row d-flex flex-wrap align-items-center">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1"></div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                    <img src="{% static 'BioTours_Application/media/index/image-par/Par2.jpeg' %}">
+                         class="img-par-about shadow-2-strong" alt="">
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1"></div>
+            </div>
+        </div>-->
+    </main>
+{% endblock %}

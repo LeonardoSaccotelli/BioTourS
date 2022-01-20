@@ -1,0 +1,37 @@
+/*==============================================
+        CSS FOR SHOW SIGHTING TEMPLATE
+===============================================*/
+#container-table-sighting{
+    /*border:red solid;*/
+    padding:1rem 1rem;
+    margin-bottom:2rem;
+    margin-top:1.5rem;
+}
+
+#container-pagination-sighting{
+    /*border:blue solid;*/
+    padding:1rem 0;
+    margin-bottom:1rem;
+    margin-top:2rem;
+}
+
+#filter-form-container{
+    padding:1rem 1rem;
+    border-bottom:solid 1px #BDBDBD;
+}
+
+#search-button{
+    margin-top:1.9rem;
+    width: 100%;
+}
+
+#search-button:hover{
+    color:#FFFFFF;
+}
+
+/*screen width <767*/
+@media (max-width: 767px){
+    #col-search-button{
+        text-align:center;
+    }
+}

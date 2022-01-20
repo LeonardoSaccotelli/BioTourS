@@ -1,0 +1,144 @@
+{% extends 'BioToursApplication/common_template.html' %}
+{% load static %}
+{%  load BioTours_Application_extras %}
+
+<!-- Override the title of the template -->
+{% block title %}Sightings Catalogue | BioTourS{% endblock %}
+
+<!-- Extend the head section, adding links, styles ad script of this template only-->
+{% block extra_head %}
+    {{ block.super }}
+    <link href="{% static 'BioTours_Application/css/show-sighting/show-sighting-style.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+{% block content %}
+
+<!--------------------------------------------------------
+                Main
+--------------------------------------------------------->
+<main>
+
+    <div class="container container-header">
+        <h1 class="fw-light primary-text-color"> List of sightings in catalogue</h1>
+        <p class="lead primary-text-color">Show all the sightings in our catalogue or filter it by different criteria</p>
+    </div>
+    <div class="container lead primary-text-color" id="filter-form-container">
+        <form method="GET">
+            <div class="row d-flex flex-wrap align-items-center g-3">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                    <label for="{{ filtered_sightings.form.Port.id_for_label }}">Port Name:</label>
+                    {{ filtered_sightings.form.Port}}
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                    <label for="{{ filtered_sightings.form.Date.id_for_label }}">Date Sightings:</label>
+                    {{ filtered_sightings.form.Date}}
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                    <label for="{{ filtered_sightings.form.First_Species_Observed.id_for_label }}">Species:</label>
+                    {{ filtered_sightings.form.First_Species_Observed}}
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3" id="col-search-button">
+                    <input type="submit" value="Search" class="btn btn-lg gradient-custom-color text-primary-color"
+                           id="search-button">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Table or empty par -->
+    <div class="container table-responsive" id="container-table-sighting">
+        {% if num_rows > 0 %}
+            <table id="tableSighting" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" class="lead primary-text-color">#</th>
+                    <th scope="col" class="lead primary-text-color">Port</th>
+                    <th scope="col" class="lead primary-text-color">Date</th>
+                    <th scope="col" class="lead primary-text-color">Species</th>
+                    <th scope="col" class="lead primary-text-color">Num. of individuals</th>
+                </tr>
+                </thead>
+                <tbody id="mySightingsTable">
+
+                {% for sighting in sighting_page_obj %}
+                    <tr>
+                        <th class="lead primary-text-color" scope="row"><a href="{% url 'sightingDetails' sighting.pk %}">{{ sighting.pk }}</a></th>
+                        <td class="lead primary-text-color">{{ sighting.Port}}</td>
+                        <td class="lead primary-text-color">{{ sighting.Date }}</td>
+                        <td class="lead primary-text-color">{{ sighting.First_Species_Observed.Name_Species }}</td>
+                        <td class="lead primary-text-color">{{ sighting.Number_Individuals }}</td>
+                    </tr>
+                    {% empty %}
+                        <h4 class="fw-light primary-text-color">No matching sightings </h4>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4 class="fw-light primary-text-color">No sightings yet</h4>
+        {% endif %}
+    </div>
+
+    <!-- Pagination -->
+    {% if sighting_page_obj.has_other_pages %}
+        <div class="container pagination-set" id="container-pagination-sighting">
+            <nav aria-label="">
+                <ul class="pagination justify-content-center">
+                    {% if sighting_page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link lead"
+                               href="{% my_url sighting_page_obj.previous_page_number  'page' request.GET.urlencode %}">
+                                Previous </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link lead"><span>Previous</span></a>
+                        </li>
+                    {% endif %}
+                    {% for i in page_range %}
+                        {% if sighting_page_obj.number == i %}
+                            <li class="page-item active">
+                                <a class="page-link lead" href="#">{{ i }}
+                                    <span class="sr-only"></span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link lead" href="{% my_url i 'page' request.GET.urlencode %}">
+                                    {{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if sighting_page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link lead" aria-label="Next"
+                               href="{% my_url sighting_page_obj.next_page_number  'page' request.GET.urlencode %}">
+                                Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link lead">
+                                <span>Next</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+
+</main>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script>
+        const selectSpecies = document.getElementById('id_First_Species_Observed');
+        selectSpecies.classList.add('form-select', 'form-select-lg');
+    </script>
+{% endblock %}

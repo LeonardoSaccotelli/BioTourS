@@ -1,0 +1,24 @@
+{% extends 'BioToursApplication/common_template.html' %}
+{% load static %}
+
+<!-- Override the title of the template -->
+{% block title %}Map Viewer | BioTourS{% endblock %}
+
+<!-- Extend the head section, adding links, styles ad script of this template only-->
+{% block extra_head %}
+    {{ block.super }}
+    <link href="{% static 'BioTours_Application/css/map-viewer/map-viewer-style.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+{% block content %}
+
+<!--------------------------------------------------------
+                Main
+--------------------------------------------------------->
+<main>
+    <div class="container container-header">
+        <h1 class="fw-light primary-text-color"> Map Viewer</h1>
+        <p class="lead primary-text-color">Our Map</p>
+    </div></main>
+{% endblock %}
