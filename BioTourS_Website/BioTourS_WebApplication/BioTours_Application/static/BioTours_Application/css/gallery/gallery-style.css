@@ -1,14 +1,13 @@
 /*==============================================
         CSS FOR GALLERY TEMPLATE
 ===============================================*/
-.gallery-container{
-
+#tab-content-gallery{
+    border: crimson solid;
+    padding:1rem;
+    margin-top: 1rem ;
+    margin-bottom: 1rem;
 }
 
-.tab-content-gallery{
-   padding:2rem 1rem;"
-}
-
-button{
-   width: 100%;
+button:hover{
+    color: #FFFFFF;
 }

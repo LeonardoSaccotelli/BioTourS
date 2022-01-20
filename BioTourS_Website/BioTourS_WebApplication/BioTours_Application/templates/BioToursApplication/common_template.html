@@ -13,7 +13,8 @@
     {% block extra_head %}
 
         <!-- Bootstrap CSS
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
@@ -21,7 +22,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet"/>
 
         <!-- my common CSS -->
-        <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/media-query-definition.css' %}"  type="text/css">
+        <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/media-query-definition.css' %}"
+              type="text/css">
         <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/palette.css' %}" type="text/css"/>
         <link rel="stylesheet" href="{% static 'BioTours_Application/css/common/common-style.css' %}" >
 
@@ -36,27 +38,34 @@
     <!--------------------------------------------------------
                         Navigation
     --------------------------------------------------------->
+
     <nav class="navbar navbar-expand-md navbar-dark lead gradient-custom-color">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
                 BioTourS
             </a>
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %} active {% endif %}"
+                           aria-current="page" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %} active {% endif %}"
+                           href="{% url 'about' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'insertSighting' %}">Insert sighting</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'insertSighting' %} active {% endif %}"
+                           href="{% url 'insertSighting' %}">Insert sighting</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'showSighting' or request.resolver_match.url_name == 'mapViewer' %} active
+                        {% endif %} dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-mdb-toggle="dropdown" aria-expanded="false">
                             Show sightings
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -65,7 +74,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'gallery' %} active {% endif %}"
+                           href="{% url 'gallery' %}">Multimedia</a>
                     </li>
                 </ul>
             </div>
@@ -213,7 +223,8 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
          crossorigin="anonymous"></script>-->
         <!-- MDB -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.js">
+        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     {% endblock extra_js %}

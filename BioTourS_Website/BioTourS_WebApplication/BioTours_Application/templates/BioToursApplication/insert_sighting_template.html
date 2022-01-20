@@ -24,7 +24,7 @@
 
     <div class="container" style="padding-top:0.5rem;padding-bottom:2rem;">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
                  {% if submitted %}
                      {% if accepted_files %}
                          <div class="alert alert-success" role="alert">
@@ -58,22 +58,43 @@
                          </div>
                      {% endif %}
                  {% endif %}
-
-                <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data"
-                      style="border:1px solid #2196F3;border-radius:10px;padding:1rem;margin:1rem;
-                      background: linear-gradient(135deg, #FFFFFF 0%, #BBDEFB 350%);">
-                    {% csrf_token %}
-                    {{ form_sighting.as_p }}
-                    {{ form_file_sighting.as_p }}
-
-                    <!-- container for input type[submit]-->
-                    <div class="container">
-                        <div class="row" style="padding:0.5rem 0;">
-                            <input type="submit" value="Submit" class="btn btn-lg gradient-custom-color text-primary-color" id="submit-btn-insert-sighting">
+                <div class="container lead primary-text-color">
+                    <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data"
+                          style="border:1px solid #2196F3;border-radius:10px;padding:1rem;margin:1rem;
+                          background: linear-gradient(135deg, #FFFFFF 0%, #BBDEFB 350%);">
+                        {% csrf_token %}
+                        <div class="row d-flex flex-wrap align-items-center g-3">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="{{ form_sighting.Port.id_for_label }}">{{ form_sighting.Port.label }}:</label>
+                                {{ form_sighting.Port}}
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="{{ form_sighting.Date.id_for_label }}">{{ form_sighting.Date.label }}:</label>
+                                {{ form_sighting.Date}}
+                            </div>
                         </div>
-                    </div>
-
-                </form>
+                        <div class="row d-flex flex-wrap align-items-center mt-2">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <label for="{{ form_sighting.Notes.id_for_label }}">{{ form_sighting.Notes.label }}:</label>
+                                {{ form_sighting.Notes}}
+                            </div>
+                        </div>
+                        <div class="row d-flex flex-wrap align-items-center mt-2">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <label for="{{ form_file_sighting.file.id_for_label }}">
+                                    {{ form_file_sighting.file.label }}:</label>
+                                {{ form_file_sighting.file}}
+                            </div>
+                        </div>
+                        <div class="row d-flex flex-wrap align-items-center mt-3">
+                            <div class="col-0 col-sm-0 col-md-12 col-lg-4"></div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 text-center">
+                            <input type="submit" value="Submit" class="btn btn-lg
+                                gradient-custom-color text-primary-color" id="submit-btn-insert-sighting">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

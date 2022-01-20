@@ -2,7 +2,7 @@
 {% load static %}
 
 <!-- Override the title of the template -->
-{% block title %}Gallery | BioTourS{% endblock %}
+{% block title %}Multimedia | BioTourS{% endblock %}
 
 <!-- Extend the head section, adding links, styles ad script of this template only-->
 {% block extra_head %}
@@ -13,663 +13,150 @@
 
 {% block content %}
 
-<!--------------------------------------------------------
-                Main
---------------------------------------------------------->
-<main>
-    <div class="container container-header">
-        <h1 class="fw-light primary-text-color"> Gallery</h1>
-        <p class="lead primary-text-color">Insert a new sighting and help us to grow our catalogue. You can fill the form below or you can just upload images or videos.</p>
-    </div>
+    <!--------------------------------------------------------
+                    Main
+    --------------------------------------------------------->
+    <main>
+        <div class="container container-header">
+            <h1 class="fw-light primary-text-color"> Multimedia</h1>
+            <p class="lead primary-text-color">Insert a new sighting and help us to grow our catalogue. You can fill the form below or you can just upload images or videos.</p>
+        </div>
 
-    <div class="container" style="margin-bottom:2rem;">
-        <section class="">
-            <!-- Section: Images -->
-            <section class="">
-                <div class="row g-3">
-                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo0.jpeg '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal1">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
+        <div class="container" id="tab-content-gallery">
+            <!-- Tabs navs -->
+            <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="ex2-tab-1" data-mdb-toggle="tab" href="#ex2-tabs-1" role="tab"
+                       aria-controls="ex2-tabs-1" aria-selected="true">Photo Gallery</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="tab" href="#ex2-tabs-2" role="tab"
+                       aria-controls="ex2-tabs-2" aria-selected="false">Video Gallery</a>
+                </li>
+            </ul>
 
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo1.JPG '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal2">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
+            <!-- Tabs content -->
+            <div class="tab-content" id="ex2-content">
+                <!-- tab photo -->
+                <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
 
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo2.JPG '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal3">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo3.jpg '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal4">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo4.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal5">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo5.jpeg '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal6">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo6.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal7">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo7.JPG '%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal8">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo8.JPG'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal9">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo9.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal10">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo10.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal11">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo11.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal12">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo12.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal13">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo13.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal14">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo14.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal15">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo15.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal16">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo16.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal17">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo17.jpg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal18">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo18.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal19">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo19.JPG'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal20">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo20.JPG'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal21">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo21.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal22">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo22.jpeg'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal23">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'BioTours_Application/media/gallery/photo/photo23.JPG'%}" class="w-100" alt=""/>
-                            <a href="#" data-mdb-toggle="modal" data-mdb-target="#galleryPhotoModal24">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Section: Images -->
-
-            <!-- Section: Modals -->
-            <section class="">
-                <!-- Modal 1 -->
-                <div class="modal fade" id="galleryPhotoModal1" tabindex="-1"
-                     aria-labelledby="exampleModal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo0.jpeg '%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal 2 -->
-                <div class="modal fade" id="galleryPhotoModal2" tabindex="-1" aria-labelledby="exampleModal2Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo1.JPG'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal 3 -->
-                <div class="modal fade" id="galleryPhotoModal3" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo2.JPG'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Modal 4 -->
-                <div class="modal fade" id="galleryPhotoModal4" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo3.jpg'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 5 -->
-                <div class="modal fade" id="galleryPhotoModal5" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo4.jpg'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 6 -->
-                <div class="modal fade" id="galleryPhotoModal6" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo5.jpeg'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 7 -->
-                <div class="modal fade" id="galleryPhotoModal7" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/gallery/photo/photo6.jpeg'%}" class="w-100" alt=""/>
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 8 -->
-                <div class="modal fade" id="galleryPhotoModal8" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/index/image-par/Par1.jpeg' %}" class="w-100" alt=""/>
-
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 9 -->
-                <div class="modal fade" id="galleryPhotoModal9" tabindex="-1" aria-labelledby="exampleModal3Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="ratio ratio-16x9">
-                                <img src="{% static 'BioTours_Application/media/index/image-par/Par1.jpeg' %}" class="w-100" alt=""/>
-
-                            </div>
-
-                            <div class="text-center py-3">
-                                <button type="button" class="btn gradient-custom-color text-primary-color"
-                                        data-mdb-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Section: Modals -->
-        </section>
-        <section class="">
-                    <!-- Section: Images -->
+                <!-- tab video -->
+                <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
                     <section class="">
-                        <div class="row g-3">
-                            <div class="col-lg-4 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video2.JPG' %}" class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal2">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
+                        <!-- Section: Images -->
+                        <section class="">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                                         data-ripple-color="light">
+                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video3.JPG' %}"
+                                             class="w-100" alt=""/>
+                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal1">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                                         data-ripple-color="light">
+                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video4.jpeg' %}"
+                                             class="w-100" alt=""/>
+                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal2">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                                         data-ripple-color="light">
+                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video7.JPG' %}"
+                                             class="w-100" alt=""/>
+                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal3">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                        </section>
+                        <!-- Section: Images -->
 
-                            <div class="col-lg-4 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video3.JPG' %}" class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal3">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
+                        <!-- Section: Modals -->
+                        <section class="">
+                            <!-- Modal 1 -->
+                            <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                 aria-labelledby="exampleModal1Label" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="ratio ratio-16x9">
+                                            <video controls>
+                                                <source src="{% static 'BioTours_Application/media/gallery/video/video3.mp4' %}"
+                                                        type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+
+                                        <div class="text-center py-3">
+                                            <button type="button" class="btn gradient-custom-color text-primary-color"
+                                                    data-mdb-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Modal 2 -->
+                            <div class="modal fade" id="exampleModal2" tabindex="-1"
+                                 aria-labelledby="exampleModal2Label" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="ratio ratio-16x9">
+                                            <video controls>
+                                                <source src="{% static 'BioTours_Application/media/gallery/video/video4.mp4' %}"
+                                                        type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
 
-                            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                                     data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video4.jpeg' %}"  class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal4">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
+                                        <div class="text-center py-3">
+                                            <button type="button" class="btn gradient-custom-color text-primary-color"
+                                                    data-mdb-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Modal 3 -->
+                            <div class="modal fade" id="exampleModal3" tabindex="-1"
+                                 aria-labelledby="exampleModal3Label" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="ratio ratio-16x9">
+                                            <video controls>
+                                                <source src="{% static 'BioTours_Application/media/gallery/video/video7.mp4' %}"
+                                                        type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
 
-                            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                                     data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video7.JPG' %}" class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal7">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
+                                        <div class="text-center py-3">
+                                            <button type="button" class="btn gradient-custom-color text-primary-color"
+                                                    data-mdb-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-4 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video8.JPG' %}" class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal8">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 mb-4 mb-lg-0">
-                                <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                                    <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video9.jpeg' %}" class="w-100" alt=""/>
-                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#videoModal9">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-
+                        </section>
+                        <!-- Section: Modals -->
                     </section>
-                    <!-- Section: Images -->
-
-                    <!-- Section: Modals -->
-                    <section class="">
-                        <!-- Modal 1 -->
-                        <div class="modal fade" id="videoModal1" tabindex="-1"
-                                aria-labelledby="videoModal1Label" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video1.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                                <!-- Modal 2 -->
-                        <div class="modal fade" id="videoModal2" tabindex="-1" aria-labelledby="videoModal2Label"
-                                aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video2.mp4' %}" type="video/mp4">
-                                        </video>
-
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal 3 -->
-                        <div class="modal fade" id="videoModal3" tabindex="-1" aria-labelledby="videoModal3Label"
-                                aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video3.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                         <!-- Modal 4 -->
-                        <div class="modal fade" id="videoModal4" tabindex="-1" aria-labelledby="videoModal4Label"
-                                aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video4.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal 7 -->
-                        <div class="modal fade" id="videoModal7" tabindex="-1" aria-labelledby="videoModal7Label"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video7.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal 8 -->
-                        <div class="modal fade" id="videoModal8" tabindex="-1" aria-labelledby="videoModal8Label"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video8.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal 9 -->
-                        <div class="modal fade" id="videoModal9" tabindex="-1" aria-labelledby="videoModal9Label"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="ratio ratio-16x9">
-                                        <video controls>
-                                            <source src="{% static 'BioTours_Application/media/gallery/video/video9.mp4' %}" type="video/mp4">
-                                        </video>
-                                    </div>
-
-                                    <div class="text-center py-3">
-                                        <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                data-mdb-dismiss="modal">
-                                            Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-                    <!-- Section: Modals -->
-                </section>
-
-
-
-
-
-        <!-- Tabs navs
-        <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="ex2-tab-1" data-mdb-toggle="tab" href="#ex2-tabs-1" role="tab"
-                        aria-controls="ex2-tabs-1" aria-selected="true">Photo Gallery</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="tab" href="#ex2-tabs-2" role="tab"
-                        aria-controls="ex2-tabs-2" aria-selected="false">Video Gallery</a>
-            </li>
-        </ul> -->
-         <!-- Tabs navs -->
-
-        <!-- Tabs content -->
-        <!--<div class="tab-content tab-content-gallery" id="ex2-content" style="padding:1rem 0;" >-->
-            <!-- Photo gallery content -->
-            <!--<div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
-            </div>-->
-
-            <!-- Video Gallery content -->
-            <!--<div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">-->
-                <!-- Modal gallery -->
-                <!-- Modal gallery -->
-            <!--</div>
-        </div>-->
-
-    </div>
-</main>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock%}

@@ -40,7 +40,7 @@ class SightingForm(ModelForm):
                                            'placeholder': 'Port name',
                                            'required': True,
                                            }),
-            'Date': DateInput(),
+            'Date': DateInput(attrs={'class': 'form-control form-control-lg secondary-text-color'}),
             'Notes': forms.Textarea(attrs={'class': 'form-control form-control-lg secondary-text-color',
                                            'placeholder': 'Notes',
                                            }),

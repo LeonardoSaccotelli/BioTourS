@@ -1,142 +1,16 @@
 /*==============================================
         CSS FOR ENTER SIGHTING TEMPLATE
-===============================================
-/*screen width <320
-@media (max-width: 320px){
-    .drag-area{
-        background: #FFF;
-        border: 2px dashed #2196F3;
-        height: auto;
-        max-width: 100%;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin:2rem 2rem;
-        padding:2rem 2rem;
-    }
-    .drag-area.active{
-        border: 2px solid #2196F3;
-    }
-    .drag-area .icon{
-        font-size: 30px;
-        color: #2196F3;
-    }
-    .drag-area .my-header{
-        font-size: 30px;
-        font-weight: 500;
-        color: #212121;
-    }
-    .drag-area #my-or{
-        font-size: 30px;
-        font-weight: 500;
-        color: #212121;
-        margin: 10px 0 15px 0;
-    }
-    .drag-area button{
-        padding: 10px 25px;
-        font-size: 15px;
-        height:auto;
-        font-weight: 500;
-        border: none;
-        outline: none;
-        background: #2196F3;
-        color: #FFF;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .drag-area img{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-
-    #submit-btn-insert-sighting:hover{
-        color: #FFFFFF;
-    }
-
-}
-
-/*screen width >320*
-@media (min-width: 320px) {
-    .drag-area{
-        background: #FFF;
-        border: 2px dashed #2196F3;
-        height: auto;
-        max-width: 100%;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin:4rem 2rem;
-        padding:2rem 0;
-    }
-    .drag-area.active{
-        border: 2px solid #2196F3;
-    }
-    .drag-area .icon{
-        font-size: 100px;
-        color: #2196F3;
-    }
-    .drag-area .my-header{
-        font-size: 30px;
-        font-weight: 500;
-        color: #212121;
-    }
-    .drag-area #my-or{
-        font-size: 25px;
-        font-weight: 500;
-        color: #212121;
-        margin: 10px 0 15px 0;
-    }
-    .drag-area button{
-        padding: 10px 25px;
-        font-size: 20px;
-        font-weight: 500;
-        border: none;
-        outline: none;
-        background: #2196F3;
-        color: #FFF;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .drag-area img{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-
-    #submit-btn-insert-sighting:hover{
-        color: #FFFFFF;
-    }
-}
- */
+===============================================*/
 
 label {
     color:#212121;
 }
 
-input[type=date]{
-    width:100%;
-    border: solid 1px #BDBDBD;
-    border-radius:4px;
-    padding:0.5rem 1rem;
-    color: #757575
-}
-
 input[type=submit]:hover{
     color: #FFFFFF;
+    width: 100%;
 }
 
-input:hover{
-    border: 1px solid #4285F4;
-}
-
-input[type=date]:focus {
-    outline: solid 1px #4285F4;
-    border: 1px solid #4285F4;
+input[type=submit]{
+    width: 100%;
 }
