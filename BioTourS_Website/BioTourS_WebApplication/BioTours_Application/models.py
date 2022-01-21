@@ -123,8 +123,8 @@ def get_upload_path(instance, filename):
 
 
 class File_Sighting(models.Model):
-    file = models.FileField(upload_to=get_upload_path, validators=[FileExtensionValidator(['mp4', 'jpg', 'png', 'jpeg',
-                                                                                           'HEIC'])])
+    file = models.FileField(upload_to=get_upload_path, validators=[FileExtensionValidator(['mp4', 'jpg', 'png',
+                                                                                           'jpeg', ])])
     sighting = models.ForeignKey(Sighting, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -154,4 +154,4 @@ class File_Sighting(models.Model):
             self.file = InMemoryUploadedFile(output, 'FileField', "%s.jpg" % self.file.name.split('.')[0], 'image/jpeg',
                                              sys.getsizeof(output), None)
 
-            super(File_Sighting, self).save(*args, **kwargs)
+        super(File_Sighting, self).save(*args, **kwargs)

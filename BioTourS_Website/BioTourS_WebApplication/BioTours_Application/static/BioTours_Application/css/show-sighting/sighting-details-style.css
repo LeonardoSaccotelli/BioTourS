@@ -2,8 +2,62 @@
         CSS FOR SHOW DETAILS SIGHTING TEMPLATE
 ===============================================*/
 #container-detail-style{
-    border:red solid;
-    padding:2rem;
+    padding: 1rem 2rem 2rem;
     margin-bottom:2rem;
-    margin-top:2rem;
+    margin-top:0.5rem;
+}
+.item{
+    transition: .5s ease-in-out;
+}
+
+.item:hover{
+    filter: brightness(80%);
+}
+
+video{
+    border: #BDBDBD solid 1px;
+}
+
+
+/*screen width <320*/
+@media (max-width: 320px){
+    video{
+        height: 200px;
+    }
+}
+
+
+/*screen width >=320 and <=425*/
+@media (min-width: 320px) and (max-width: 425px){
+    video{
+        height: 250px;
+    }
+}
+
+/*screen width >425 and <768*/
+@media (min-width: 425px) and (max-width: 768px){
+    video{
+        height: 275px;
+    }
+}
+
+/*screen width >768 and <850*/
+@media (min-width: 768px) and (max-width: 850px){
+    video{
+        height: 300px;
+    }
+}
+
+/*screen width >850 and <1024*/
+@media (min-width: 850px) and (max-width: 1024px){
+    video{
+        height: 400px;
+    }
+}
+
+/*screen width >1024*/
+@media (min-width: 1024px) {
+    video{
+        height: 450px;
+    }
 }

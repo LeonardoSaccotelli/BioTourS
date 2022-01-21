@@ -8,7 +8,8 @@
 {% block extra_head %}
     {{ block.super }}
     <link href="{% static 'BioTours_Application/css/gallery/gallery-style.css' %}" rel="stylesheet" type="text/css">
-
+    <link href="{% static 'BioTours_Application/css/show-sighting/sighting-details-style.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +20,8 @@
     <main>
         <div class="container container-header">
             <h1 class="fw-light primary-text-color"> Multimedia</h1>
-            <p class="lead primary-text-color">Insert a new sighting and help us to grow our catalogue. You can fill the form below or you can just upload images or videos.</p>
+            <p class="lead primary-text-color">Insert a new sighting and help us to grow our catalogue.
+            </p>
         </div>
 
         <div class="container" id="tab-content-gallery">
@@ -39,124 +41,48 @@
             <div class="tab-content" id="ex2-content">
                 <!-- tab photo -->
                 <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
-
+                    <div class="container" style="margin-bottom:1rem;">
+                        <div class="row mt-2">
+                            {% for image_sighting in image_files_sighting %}
+                                <div class="item col-6 col-sm-4 col-md-4 mb-2">
+                                    <a href="{{ image_sighting.file.url }}" class="fancybox" data-fancybox="gallery1">
+                                        <img src="{{ image_sighting.file.url }}"
+                                             width="100%" height="100%" alt="">
+                                    </a>
+                                </div>
+                            {% empty %}
+                                <h4 class="fw-light primary-text-color">Photo gallery is empty </h4>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
 
                 <!-- tab video -->
                 <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
-                    <section class="">
-                        <!-- Section: Images -->
-                        <section class="">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                                         data-ripple-color="light">
-                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video3.JPG' %}"
-                                             class="w-100" alt=""/>
-                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal1">
-                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                        </a>
-                                    </div>
+                    <div class="container" style="margin-bottom:0.5rem;">
+                        <div class="row mt-2">
+                            {% for video_sighting in video_files_sighting %}
+                                <div class="item col-sm-6 col-md-6 col-lg-4 mb-2">
+                                    <video width="100%" controls>
+                                        <source src="{{ video_sighting.file.url }}"
+                                                type="video/mp4">
+                                        <h4 class="fw-light primary-text-color">
+                                            Your browser does not support the video tag.
+                                        </h4>
+                                    </video>
                                 </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0">
-                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                                         data-ripple-color="light">
-                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video4.jpeg' %}"
-                                             class="w-100" alt=""/>
-                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal2">
-                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0">
-                                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                                         data-ripple-color="light">
-                                        <img src="{% static 'BioTours_Application/media/gallery/photo/preview_video7.JPG' %}"
-                                             class="w-100" alt=""/>
-                                        <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal3">
-                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- Section: Images -->
-
-                        <!-- Section: Modals -->
-                        <section class="">
-                            <!-- Modal 1 -->
-                            <div class="modal fade" id="exampleModal1" tabindex="-1"
-                                 aria-labelledby="exampleModal1Label" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="ratio ratio-16x9">
-                                            <video controls>
-                                                <source src="{% static 'BioTours_Application/media/gallery/video/video3.mp4' %}"
-                                                        type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-
-                                        <div class="text-center py-3">
-                                            <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                    data-mdb-dismiss="modal">
-                                                Close
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal 2 -->
-                            <div class="modal fade" id="exampleModal2" tabindex="-1"
-                                 aria-labelledby="exampleModal2Label" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="ratio ratio-16x9">
-                                            <video controls>
-                                                <source src="{% static 'BioTours_Application/media/gallery/video/video4.mp4' %}"
-                                                        type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-
-                                        <div class="text-center py-3">
-                                            <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                    data-mdb-dismiss="modal">
-                                                Close
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal 3 -->
-                            <div class="modal fade" id="exampleModal3" tabindex="-1"
-                                 aria-labelledby="exampleModal3Label" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="ratio ratio-16x9">
-                                            <video controls>
-                                                <source src="{% static 'BioTours_Application/media/gallery/video/video7.mp4' %}"
-                                                        type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-
-                                        <div class="text-center py-3">
-                                            <button type="button" class="btn gradient-custom-color text-primary-color"
-                                                    data-mdb-dismiss="modal">
-                                                Close
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- Section: Modals -->
-                    </section>
+                            {% empty %}
+                                <h4 class="fw-light primary-text-color">Video gallery is empty </h4>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 {% endblock%}
+{% block extra_js %}
+    {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+{% endblock %}

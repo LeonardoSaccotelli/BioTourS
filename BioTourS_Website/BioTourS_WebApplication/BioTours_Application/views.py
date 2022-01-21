@@ -4,6 +4,9 @@ from haversine import Unit
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 from .filters import SightingFilter
+import os
+from django.conf import settings
+from django.templatetags.static import static
 
 from .forms import SightingForm, FileSightingForm
 from .models import Sighting, File_Sighting
@@ -15,6 +18,7 @@ import haversine as gps_distance_library
 The HomepageView() method is the view that handles
 the request to the homepage.
 """
+import os
 
 
 def HomepageView(request):
@@ -179,12 +183,22 @@ def ShowSightingView(request):
 
 def DetailSightingView(request, sighting_pk):
     sighting_detail = Sighting.objects.get(pk=sighting_pk)
-    files_sighting = File_Sighting.objects.all().filter(sighting=sighting_detail)[0:2]
+    files_sighting = File_Sighting.objects.all().filter(sighting=sighting_detail)
+
+    list_image_sighting = list()
+    list_video_sighting = list()
+
+    for file_sighting in files_sighting:
+        if file_sighting.file.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+            list_image_sighting.append(file_sighting)
+        else:
+            list_video_sighting.append(file_sighting)
 
     template = 'BioToursApplication/sighting_details_template.html'
     context = {
         'sighting': sighting_detail,
-        'files_sighting': files_sighting
+        'image_files_sighting': list_image_sighting[0:12],
+        'video_files_sighting': list_video_sighting[0:6],
     }
     return render(request, template, context)
 
@@ -194,4 +208,19 @@ def MapViewerView(request):
 
 
 def GalleryView(request):
-    return render(request, 'BioToursApplication/gallery_template.html')
+    files_sighting = File_Sighting.objects.all()
+    list_image_sighting = list()
+    list_video_sighting = list()
+
+    for file_sighting in files_sighting:
+        if file_sighting.file.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+            list_image_sighting.append(file_sighting)
+        else:
+            list_video_sighting.append(file_sighting)
+
+    template = 'BioToursApplication/gallery_template.html'
+    context = {
+        'image_files_sighting': list_image_sighting[0:21],
+        'video_files_sighting': list_video_sighting[0:12],
+    }
+    return render(request, template, context)
