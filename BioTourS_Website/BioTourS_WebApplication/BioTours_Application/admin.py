@@ -3,11 +3,12 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.forms import OSMWidget
+from django.db.models import DateField, TimeField
 from import_export.admin import ExportMixin
 from import_export import resources, fields
 from import_export.widgets import ManyToManyWidget, ForeignKeyWidget
-
 from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting, Gallery
+from .forms import DateInput, TimeInput
 
 # Removed 'Group' from admin section
 admin.site.unregister(Group)
@@ -128,6 +129,8 @@ class SightingAdmin(ExportMixin, admin.ModelAdmin):
 
     formfield_overrides = {
         PointField: {"widget": OSMWidget},
+        DateField: {"widget": DateInput},
+        TimeField: {"widget": TimeInput},
     }
 
     # Sort by date

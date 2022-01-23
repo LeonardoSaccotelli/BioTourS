@@ -61,8 +61,8 @@ def validate_latitude(value):
 
 class Sighting(models.Model):
     Port = models.CharField(max_length=100, default="Not available")
-    Date = models.DateField(help_text='Date Format: YYYY-MM-DD', )
-    Start_Activity_Time = models.TimeField(blank=True, null=True, help_text='Time Format: HH:mm:ss')
+    Date = models.DateField()
+    Start_Activity_Time = models.TimeField(blank=True, null=True, )
     End_Activity_Time = models.TimeField(blank=True, null=True)
     Start_Contact_Time = models.TimeField(blank=True, null=True)
     End_Contact_Time = models.TimeField(blank=True, null=True)

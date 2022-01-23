@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import ModelForm
-
 from .models import Sighting, File_Sighting
 
 
@@ -23,6 +22,10 @@ class FileSightingForm(ModelForm):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
 
 
 class SightingForm(ModelForm):
