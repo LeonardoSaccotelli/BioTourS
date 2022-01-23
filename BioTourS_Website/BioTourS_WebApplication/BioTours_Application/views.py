@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from django.utils.formats import date_format
 from haversine import Unit
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -9,7 +10,7 @@ from django.conf import settings
 from django.templatetags.static import static
 
 from .forms import SightingForm, FileSightingForm
-from .models import Sighting, File_Sighting
+from .models import Sighting, File_Sighting, Gallery
 import numpy as np
 from GPSPhoto import gpsphoto
 import haversine as gps_distance_library
@@ -204,23 +205,32 @@ def DetailSightingView(request, sighting_pk):
 
 
 def MapViewerView(request):
-    return render(request, 'BioToursApplication/map_viewer_template.html')
+    filtered_sightings = SightingFilter(
+        request.GET,
+        queryset=Sighting.objects.get_queryset().order_by('pk')
+    )
+    template = 'BioToursApplication/map_viewer_template.html'
+    context = {
+        'filtered_sightings': filtered_sightings,
+    }
+
+    return render(request, template, context)
 
 
 def GalleryView(request):
-    files_sighting = File_Sighting.objects.all()
-    list_image_sighting = list()
-    list_video_sighting = list()
+    gallery_files = Gallery.objects.all().order_by('-pk')
+    list_image_gallery = list()
+    list_video_gallery = list()
 
-    for file_sighting in files_sighting:
-        if file_sighting.file.name.lower().endswith(('.png', '.jpg', '.jpeg')):
-            list_image_sighting.append(file_sighting)
+    for gallery_file in gallery_files:
+        if gallery_file.file_gallery.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+            list_image_gallery.append(gallery_file)
         else:
-            list_video_sighting.append(file_sighting)
+            list_video_gallery.append(gallery_file)
 
     template = 'BioToursApplication/gallery_template.html'
     context = {
-        'image_files_sighting': list_image_sighting[0:21],
-        'video_files_sighting': list_video_sighting[0:12],
+        'image_files_gallery': list_image_gallery[0:21],
+        'video_files_gallery': list_video_gallery[0:12],
     }
     return render(request, template, context)

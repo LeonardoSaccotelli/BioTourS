@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'BioTours_Application.apps.BiotoursApplicationConfig',
     'import_export',
     'django_filters',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'BioTourS_WebApplication.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'BioTourS',
         'USER': 'postgres',
         'PASSWORD': 'Sevjrh_334',

@@ -1,7 +1,7 @@
 /*==============================================
         CSS FOR SHOW SIGHTING TEMPLATE
 ===============================================*/
-#container-table-sighting{
+.container-table-sighting{
     /*border:red solid;*/
     padding:1rem 1rem;
     margin-bottom:2rem;
@@ -15,23 +15,23 @@
     margin-top:2rem;
 }
 
-#filter-form-container{
+.filter-form-container{
     padding:1rem 1rem;
     border-bottom:solid 1px #BDBDBD;
 }
 
-#search-button{
+.search-button{
     margin-top:1.9rem;
     width: 100%;
 }
 
-#search-button:hover{
+.search-button:hover{
     color:#FFFFFF;
 }
 
 /*screen width <767*/
 @media (max-width: 767px){
-    #col-search-button{
+    .col-search-button{
         text-align:center;
     }
 }

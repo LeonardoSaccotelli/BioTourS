@@ -1,0 +1,54 @@
+.container-map-sighting{
+    margin-bottom:2rem;
+    margin-top:2rem;
+    padding:1rem 1rem;
+
+}
+
+#map{
+    width: 100%;
+    border: solid 1px #BDBDBD;
+}
+
+/*screen width <320*/
+@media (max-width: 320px){
+    #map{
+        height: 350px;
+    }
+}
+
+
+/*screen width >=320 and <=425*/
+@media (min-width: 320px) and (max-width: 425px){
+    #map{
+        height: 400px;
+    }
+}
+
+/*screen width >425 and <768*/
+@media (min-width: 425px) and (max-width: 768px){
+    #map{
+        height: 500px;
+    }
+}
+
+/*screen width >768 and <850*/
+@media (min-width: 768px) and (max-width: 850px){
+    #map{
+        height: 600px;
+    }
+}
+
+/*screen width >850 and <1024*/
+@media (min-width: 850px) and (max-width: 1024px){
+    #map{
+        height: 650px;
+    }
+}
+
+/*screen width >1024*/
+@media (min-width: 1024px) {
+    #map{
+        height: 700px;
+    }
+}

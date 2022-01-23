@@ -8,17 +8,105 @@
 {% block extra_head %}
     {{ block.super }}
     <link href="{% static 'BioTours_Application/css/map-viewer/map-viewer-style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'BioTours_Application/css/show-sighting/show-sighting-style.css' %}" rel="stylesheet" type="text/css">
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+
+    <!-- Load Esri Leaflet Geocoder from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+          integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+          crossorigin="">
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.5.0/dist/esri-leaflet.js"
+            integrity="sha512-ucw7Grpc+iEQZa711gcjgMBnmd9qju1CICsRaryvX7HJklK0pGl/prxKvtHwpgm5ZHdvAil7YPxI1oWPOWK3UQ=="
+            crossorigin=""></script>
+
+
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+            integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+            crossorigin=""></script>
+
 
 {% endblock %}
 
 {% block content %}
 
-<!--------------------------------------------------------
-                Main
---------------------------------------------------------->
-<main>
-    <div class="container container-header">
-        <h1 class="fw-light primary-text-color"> Map Viewer</h1>
-        <p class="lead primary-text-color">Our Map</p>
-    </div></main>
+    <!--------------------------------------------------------
+                    Main
+    --------------------------------------------------------->
+    <main>
+        <div class="container container-header">
+            <h1 class="fw-light primary-text-color"> Map Viewer</h1>
+            <p class="lead primary-text-color">Show all the sightings on the map or filter it by different criteria</p>
+        </div>
+
+        <div class="container lead primary-text-color filter-form-container">
+            <form method="GET">
+                <div class="row d-flex flex-wrap align-items-center g-3">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                        <label for="{{ filtered_sightings.form.Port.id_for_label }}">Port Name:</label>
+                        {{ filtered_sightings.form.Port}}
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                        <label for="{{ filtered_sightings.form.Date.id_for_label }}">Date Sightings:</label>
+                        {{ filtered_sightings.form.Date}}
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                        <label for="{{ filtered_sightings.form.First_Species_Observed.id_for_label }}">Species:</label>
+                        {{ filtered_sightings.form.First_Species_Observed}}
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-search-button">
+                        <input type="submit" value="Search" class="btn btn-lg gradient-custom-color text-primary-color
+                           search-button">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container container-map-sighting">
+
+        <ol>
+            {% for sighting in filtered_sightings.qs %}
+                    {% if sighting.Gps_Location is not None %}
+                    <li>GPS: {{ sighting.Gps_Location }}, Lat: {{ sighting.Gps_Location.coords.1}},Long: {{ sighting.Gps_Location.coords.0 }},Port: {{ sighting.Port }}, Date: {{ sighting.Date }}, Species: {{ sighting.First_Species_Observed.Name_Species }}"</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+
+            <div id="map"></div>
+            <script>
+                let map = L.map('map').setView([40, 20], 7);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                {% for sighting in filtered_sightings.qs %}
+                    {% if sighting.Gps_Location is not None %}
+                        L.marker(["{{ sighting.Gps_Location.coords.1 }}","{{ sighting.Gps_Location.coords.0 }}"]).addTo(map)
+                            .bindPopup('<a href="{% url 'sightingDetails' sighting.pk %}">' + "Port: {{ sighting.Port }}; Lat: {{ sighting.Gps_Location.coords.1 }}; Long: {{ sighting.Gps_Location.coords.0 }}; Date: {{ sighting.Date }}; Species: {{ sighting.First_Species_Observed.Name_Species }}"+
+                                '</a>'
+                            );
+                    {% endif %}
+                {% endfor %}
+            </script>
+        </div>
+
+    </main>
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        const selectSpecies = document.getElementById('id_First_Species_Observed');
+        selectSpecies.classList.add('form-select', 'form-select-lg');
+    </script>
 {% endblock %}

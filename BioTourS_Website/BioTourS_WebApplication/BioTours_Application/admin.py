@@ -1,11 +1,13 @@
 # Register your models here.
 from django.contrib import admin
 from django.contrib.auth.models import Group
+from django.contrib.gis.db.models import PointField
+from django.contrib.gis.forms import OSMWidget
 from import_export.admin import ExportMixin
 from import_export import resources, fields
 from import_export.widgets import ManyToManyWidget, ForeignKeyWidget
 
-from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting
+from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting, Gallery
 
 # Removed 'Group' from admin section
 admin.site.unregister(Group)
@@ -20,6 +22,11 @@ admin.site.index_title = ''
 
 # Corresponding to the tab 'View Site'
 admin.site.site_url = ''
+
+
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'approval', 'company_view',)
+    list_filter = ('approval',)
 
 
 # Create a TabularInline to enter one or more Secondary Species observed
@@ -97,7 +104,7 @@ class SightingAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = SightingResource
 
     fieldsets = [
-        ('Location Information', {'fields': ['Port', 'Latitude_Contact', 'Longitude_Contact'],
+        ('Location Information', {'fields': ['Port', 'Latitude_Contact', 'Longitude_Contact', 'Gps_Location'],
                                   'classes': ('collapse',)
                                   }),
         ('Date and time information', {'fields': ['Date', 'Start_Activity_Time',
@@ -118,6 +125,10 @@ class SightingAdmin(ExportMixin, admin.ModelAdmin):
     # Select fields to be shown in table
     list_display = ('Port', 'Date', 'First_Species_Observed',
                     'Number_Individuals', 'list_of_research_activities', 'list_of_prevalent_behaviors')
+
+    formfield_overrides = {
+        PointField: {"widget": OSMWidget},
+    }
 
     # Sort by date
     ordering = ['Date']
@@ -141,3 +152,4 @@ admin.site.register(Sighting, SightingAdmin)
 admin.site.register(Prevalent_Behavior)
 admin.site.register(Research_Activity)
 admin.site.register(Dolphin_Species)
+admin.site.register(Gallery)

@@ -25,6 +25,10 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="baguettebox.js" level="application" />
     <orderEntry type="library" name="fancybox" level="application" />
+    <orderEntry type="library" name="leaflet" level="application" />
+    <orderEntry type="library" name="esri-leaflet-geocoder" level="application" />
+    <orderEntry type="library" name="esri-leaflet" level="application" />
+    <orderEntry type="library" name="leaflet.markercluster" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

@@ -1,10 +1,10 @@
 import sys
 from io import BytesIO
-
 from PIL import Image
+from django.contrib.gis.geos import Point
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import FileExtensionValidator
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.formats import date_format
 from django.core.exceptions import ValidationError
 
@@ -66,6 +66,8 @@ class Sighting(models.Model):
     End_Activity_Time = models.TimeField(blank=True, null=True)
     Start_Contact_Time = models.TimeField(blank=True, null=True)
     End_Contact_Time = models.TimeField(blank=True, null=True)
+    Gps_Location = models.PointField(blank=True, null=True)
+
     Latitude_Contact = models.FloatField(blank=True, null=True,
                                          validators=[validate_latitude],
                                          help_text='The Equator has a latitude of 0°, the North Pole has a '
@@ -114,17 +116,29 @@ class Sighting(models.Model):
             list_behaviors = '-'
         return list_behaviors
 
+    def save(self, *args, **kwargs):
+        if self.Latitude_Contact is not None and self.Longitude_Contact is not None:
+            self.Gps_Location = Point(self.Longitude_Contact, self.Latitude_Contact)
+        super(Sighting, self).save(*args, **kwargs)
+
 
 def get_upload_path(instance, filename):
     fk = instance.sighting.pk
     path = str(fk) + '_' + str(Sighting.objects.get(pk=fk)).replace(' ', '_').replace(',', '')
-    absolute_p = '%s/%s' % (path, filename)
+    absolute_p = 'sighting/%s/%s' % (path, filename)
     return absolute_p
 
 
+def file_size(value):
+    limit = 80 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError('File too large. Size should not exceed 80 MB.')
+
+
 class File_Sighting(models.Model):
-    file = models.FileField(upload_to=get_upload_path, validators=[FileExtensionValidator(['mp4', 'jpg', 'png',
-                                                                                           'jpeg', ])])
+    file = models.FileField(upload_to=get_upload_path,
+                            validators=[FileExtensionValidator(['mp4', 'webm', 'ogg', 'jpg', 'png',
+                                                                'jpeg', ]), file_size])
     sighting = models.ForeignKey(Sighting, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -155,3 +169,37 @@ class File_Sighting(models.Model):
                                              sys.getsizeof(output), None)
 
         super(File_Sighting, self).save(*args, **kwargs)
+
+
+class Gallery(models.Model):
+    file_gallery = models.FileField(upload_to='gallery/',
+                                    validators=[FileExtensionValidator(['mp4', 'webm', 'ogg', 'jpg', 'png',
+                                                                        'jpeg', ]), file_size])
+
+    class Meta:
+        verbose_name = 'Gallery_Files'
+        verbose_name_plural = 'Gallery_Files'
+        db_table = 'Gallery_File'
+
+    def __str__(self):
+        return self.file_gallery.name
+
+    def save(self, *args, **kwargs):
+        if self.file_gallery.name.lower().endswith(('.jpg', '.png', '.jpeg')):
+            image_gallery = Image.open(self.file_gallery)
+            output = BytesIO()
+
+            original_width = image_gallery.size[0]
+            original_height = image_gallery.size[1]
+            aspect_ratio = round(original_width / original_height)
+            desired_height = 800
+            desired_width = desired_height * aspect_ratio
+
+            image_gallery = image_gallery.resize((desired_width, desired_height))
+            image_gallery.save(output, format='JPEG', quality=80)
+
+            self.file_gallery = InMemoryUploadedFile(output, 'FileField',
+                                                     "%s.jpg" % self.file_gallery.name.split('.')[0],
+                                                     'image/jpeg', sys.getsizeof(output), None)
+
+        super(Gallery, self).save(*args, **kwargs)
