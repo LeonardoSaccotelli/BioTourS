@@ -1,6 +1,4 @@
 from django import forms
-from django.contrib.gis.geos import Point
-from django.core import validators
 from django.forms import ModelForm
 
 from .models import Sighting, File_Sighting

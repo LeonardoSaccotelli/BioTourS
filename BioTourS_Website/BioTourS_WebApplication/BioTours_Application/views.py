@@ -154,7 +154,7 @@ def ShowSightingView(request):
         queryset=Sighting.objects.get_queryset().order_by('pk')
     )
 
-    paginated_filtered_sightings = Paginator(filtered_sightings.qs, 3)
+    paginated_filtered_sightings = Paginator(filtered_sightings.qs, 10)
     page_number = request.GET.get('page', 1)
     sighting_page_obj = paginated_filtered_sightings.get_page(page_number)
 

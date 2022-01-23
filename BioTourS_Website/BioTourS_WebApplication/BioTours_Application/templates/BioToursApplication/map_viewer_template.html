@@ -9,29 +9,41 @@
     {{ block.super }}
     <link href="{% static 'BioTours_Application/css/map-viewer/map-viewer-style.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'BioTours_Application/css/show-sighting/show-sighting-style.css' %}" rel="stylesheet" type="text/css">
-    <!-- Load Leaflet from CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-          crossorigin=""/>
 
-    <!-- Load Esri Leaflet Geocoder from CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
-          integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
-          crossorigin="">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha384-VzLXTJGPSyTLX6d96AxgkKvE/LRb7ECGyTxuwtpjHnVWVZs2gp5RDjeM/tgBnVdM"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.0/dist/MarkerCluster.css"
+            integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet.markercluster@1.5.0/dist/MarkerCluster.Default.css"
+            integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+"
+            crossorigin="anonymous"
+    />
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin=""></script>
-
-    <!-- Load Esri Leaflet from CDN -->
-    <script src="https://unpkg.com/esri-leaflet@2.5.0/dist/esri-leaflet.js"
-            integrity="sha512-ucw7Grpc+iEQZa711gcjgMBnmd9qju1CICsRaryvX7HJklK0pGl/prxKvtHwpgm5ZHdvAil7YPxI1oWPOWK3UQ=="
-            crossorigin=""></script>
-
-
-    <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
-            integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
-            crossorigin=""></script>
+    <script
+            src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"
+            integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha384-RFZC58YeKApoNsIbBxf4z6JJXmh+geBSgkCQXFyh+4tiFSJmJBt+2FbjxW7Ar16M"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://unpkg.com/leaflet.markercluster@1.5.0/dist/leaflet.markercluster.js"
+            integrity="sha384-89yDmbSkL9reFc77m10ZbqLaUMf1sp7FAJs2oAD/rczNnY7I+17yN9KML6tpYpCk"
+            crossorigin="anonymous"
+    ></script>
 
 
 {% endblock %}
@@ -74,30 +86,39 @@
         </div>
         <div class="container container-map-sighting">
 
-        <ol>
-            {% for sighting in filtered_sightings.qs %}
-                    {% if sighting.Gps_Location is not None %}
-                    <li>GPS: {{ sighting.Gps_Location }}, Lat: {{ sighting.Gps_Location.coords.1}},Long: {{ sighting.Gps_Location.coords.0 }},Port: {{ sighting.Port }}, Date: {{ sighting.Date }}, Species: {{ sighting.First_Species_Observed.Name_Species }}"</li>
-                {% endif %}
-            {% endfor %}
-        </ol>
-
             <div id="map"></div>
             <script>
-                let map = L.map('map').setView([40, 20], 7);
+                const map = L.map('map', {
+                    center: [40.0, 20.0],
+                    minZoom: 2,
+                    zoom: 7,
+                });
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
 
+                const markerCluster = L.markerClusterGroup();
+                let popup;
+                let marker;
+
                 {% for sighting in filtered_sightings.qs %}
                     {% if sighting.Gps_Location is not None %}
-                        L.marker(["{{ sighting.Gps_Location.coords.1 }}","{{ sighting.Gps_Location.coords.0 }}"]).addTo(map)
-                            .bindPopup('<a href="{% url 'sightingDetails' sighting.pk %}">' + "Port: {{ sighting.Port }}; Lat: {{ sighting.Gps_Location.coords.1 }}; Long: {{ sighting.Gps_Location.coords.0 }}; Date: {{ sighting.Date }}; Species: {{ sighting.First_Species_Observed.Name_Species }}"+
+
+                        popup = '<a href="{% url 'sightingDetails' sighting.pk %}">' +
+                                '<b>' + "Latitude" + '</b>' + ": {{ sighting.Gps_Location.coords.1 }}" +
+                                '<br><b>' + "Longitude" + '</b>' + ": {{ sighting.Gps_Location.coords.0 }}" +
+                                '<br><b>' + "Port" + '</b>' + ": {{ sighting.Port }}" +
+                                '<br><b>' + "Date" + '</b>' + ": {{ sighting.Date }}" +
+                                '<br><b>' + "First Species Observed" + '</b>'+ ": {{ sighting.First_Species_Observed.Name_Species }}" +
+                                '<br><b>' + "Num. Individuals" + '</b>' + ": {{ sighting.Number_Individuals }}" +
                                 '</a>'
-                            );
+
+                        marker = L.marker(["{{ sighting.Gps_Location.coords.1 }}","{{ sighting.Gps_Location.coords.0 }}"]).bindPopup(popup);
+                        markerCluster.addLayer(marker);
                     {% endif %}
                 {% endfor %}
+            map.addLayer(markerCluster);
             </script>
         </div>
 

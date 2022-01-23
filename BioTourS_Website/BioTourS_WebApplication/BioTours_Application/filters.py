@@ -1,7 +1,7 @@
 import django_filters
-from .models import Sighting
+from django.forms import TextInput
 from .forms import DateInput
-from django.forms import TextInput, forms
+from .models import Sighting
 
 
 class SightingFilter(django_filters.FilterSet):
