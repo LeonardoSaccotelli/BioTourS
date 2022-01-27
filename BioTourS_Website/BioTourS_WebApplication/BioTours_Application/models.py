@@ -118,7 +118,7 @@ class Sighting(models.Model):
 
     def save(self, *args, **kwargs):
         if self.Latitude_Contact is not None and self.Longitude_Contact is not None:
-            self.Gps_Location = Point(self.Longitude_Contact, self.Latitude_Contact)
+            self.Gps_Location = Point(float(self.Longitude_Contact), float(self.Latitude_Contact))
         super(Sighting, self).save(*args, **kwargs)
 
 

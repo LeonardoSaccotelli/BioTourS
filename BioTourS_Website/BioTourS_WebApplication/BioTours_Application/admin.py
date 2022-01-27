@@ -1,16 +1,19 @@
 # Register your models here.
+import io
+import zipfile
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.forms import OSMWidget
 from django.db.models import DateField, TimeField
-from import_export.admin import ExportMixin
-from import_export import resources, fields
-from import_export.widgets import ManyToManyWidget, ForeignKeyWidget
-from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting, Gallery
+from django.http import HttpResponse
+from import_export.admin import ImportExportMixin
 from .forms import DateInput, TimeInput
+from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting, Gallery
+from .resources import SightingResource
 
 # Removed 'Group' from admin section
+
 admin.site.unregister(Group)
 
 # Change header name in the administration section
@@ -25,9 +28,22 @@ admin.site.index_title = ''
 admin.site.site_url = ''
 
 
-class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'approval', 'company_view',)
-    list_filter = ('approval',)
+@admin.action(description='Download selected files')
+def download_files(modeladmin, request, queryset):
+    zip_filename = 'sighting_files.zip'
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_STORED, False) as zip_file:
+        for obj in queryset:
+            path_file = obj.file
+            zip_file.writestr(str(path_file), path_file.path)
+    zip_buffer.seek(0)
+    resp = HttpResponse(zip_buffer, content_type='application/zip')
+    resp['Content-Disposition'] = 'attachment; filename = %s' % zip_filename
+    return resp
+
+
+class FileSightingModelAdmin(admin.ModelAdmin):
+    actions = [download_files]
 
 
 # Create a TabularInline to enter one or more Secondary Species observed
@@ -66,40 +82,8 @@ class FileSightingInline(admin.TabularInline):
     verbose_name_plural = 'Sighting Files'
 
 
-# Define a resource to be used for db export
-class SightingResource(resources.ModelResource):
-    Port = fields.Field(attribute='Port', column_name='Port')
-    Date = fields.Field(attribute='Date', column_name='Date')
-    Start_Activity_Time = fields.Field(attribute='Start_Activity_Time', column_name='Start_Activity_Time')
-    End_Activity_Time = fields.Field(attribute='End_Activity_Time', column_name='End_Activity_Time')
-    Start_Contact_Time = fields.Field(attribute='Start_Contact_Time', column_name='Start_Contact_Time')
-    End_Contact_Time = fields.Field(attribute='End_Contact_Time', column_name='End_Contact_Time')
-    Latitude_Contact = fields.Field(attribute='Latitude_Contact', column_name='Latitude_Contact')
-    Longitude_Contact = fields.Field(attribute='Longitude_Contact', column_name='Longitude_Contact')
-    Depth = fields.Field(attribute='Depth', column_name='Depth')
-    First_Species_Observed = fields.Field(attribute='First_Species_Observed', column_name='First_Species_Observed',
-                                          widget=ForeignKeyWidget(model=Dolphin_Species, field='Name_Species'))
-    Second_Species_Observed = fields.Field(attribute='Second_Species_Observed', column_name='Second_Species_Observed',
-                                           widget=ManyToManyWidget(model=Dolphin_Species, separator=';',
-                                                                   field='Name_Species'))
-    Number_Individuals = fields.Field(attribute='Number_Individuals', column_name='Number_Individuals')
-    Number_Calves = fields.Field(attribute='Number_Calves', column_name='Number_Calves')
-    Behavior = fields.Field(attribute='Behavior', column_name='Prevalent_Behavior',
-                            widget=ManyToManyWidget(model=Prevalent_Behavior, separator=';', field='Behavior'))
-    Activity = fields.Field(attribute='Activity', column_name='Research_Activity',
-                            widget=ManyToManyWidget(model=Research_Activity, separator=';', field='Activity'))
-    Other_Boats = fields.Field(attribute='Other_Boats', column_name='Other_Boats')
-    Fishing_Gear_Available = fields.Field(attribute='Fishing_Gear_Available', column_name='Fishing_Gear_Available')
-    Interaction_With_Gear = fields.Field(attribute='Interaction_With_Gear', column_name='Interaction_With_Gear')
-    Other_Organism = fields.Field(attribute='Other_Organism', column_name='Other_Organism')
-    Notes = fields.Field(attribute='Notes', column_name='Notes')
-
-    class Meta:
-        model = Sighting
-
-
 # Define a layout for Sighting field, grouping in different fieldset
-class SightingAdmin(ExportMixin, admin.ModelAdmin):
+class SightingAdmin(ImportExportMixin, admin.ModelAdmin):
     # Divide fields in fieldsets
 
     resource_class = SightingResource
@@ -156,3 +140,4 @@ admin.site.register(Prevalent_Behavior)
 admin.site.register(Research_Activity)
 admin.site.register(Dolphin_Species)
 admin.site.register(Gallery)
+admin.site.register(File_Sighting, FileSightingModelAdmin)

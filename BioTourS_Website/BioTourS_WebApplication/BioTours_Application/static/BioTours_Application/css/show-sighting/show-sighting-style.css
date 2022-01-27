@@ -2,14 +2,12 @@
         CSS FOR SHOW SIGHTING TEMPLATE
 ===============================================*/
 .container-table-sighting{
-    /*border:red solid;*/
     padding:1rem 1rem;
     margin-bottom:2rem;
     margin-top:1.5rem;
 }
 
 #container-pagination-sighting{
-    /*border:blue solid;*/
     padding:1rem 0;
     margin-bottom:1rem;
     margin-top:2rem;
