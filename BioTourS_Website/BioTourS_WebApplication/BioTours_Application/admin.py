@@ -12,8 +12,8 @@ from .forms import DateInput, TimeInput
 from .models import Prevalent_Behavior, Research_Activity, Dolphin_Species, Sighting, File_Sighting, Gallery
 from .resources import SightingResource
 
-# Removed 'Group' from admin section
 
+# Removed 'Group' from admin section
 admin.site.unregister(Group)
 
 # Change header name in the administration section
@@ -28,24 +28,6 @@ admin.site.index_title = ''
 admin.site.site_url = ''
 
 
-@admin.action(description='Download selected files')
-def download_files(modeladmin, request, queryset):
-    zip_filename = 'sighting_files.zip'
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_STORED, False) as zip_file:
-        for obj in queryset:
-            path_file = obj.file
-            zip_file.writestr(str(path_file), path_file.path)
-    zip_buffer.seek(0)
-    resp = HttpResponse(zip_buffer, content_type='application/zip')
-    resp['Content-Disposition'] = 'attachment; filename = %s' % zip_filename
-    return resp
-
-
-class FileSightingModelAdmin(admin.ModelAdmin):
-    actions = [download_files]
-
-
 # Create a TabularInline to enter one or more Secondary Species observed
 class DolphinSecondSpeciesSightingInline(admin.TabularInline):
     model = Sighting.Second_Species_Observed.through
@@ -53,6 +35,10 @@ class DolphinSecondSpeciesSightingInline(admin.TabularInline):
     classes = ['collapse']
     verbose_name = 'Secondary Species Observed'
     verbose_name_plural = 'Secondary Species Observed'
+
+
+class DolphinSpeciesModelAdmin(admin.ModelAdmin):
+    list_per_page = 15
 
 
 # Create a TabularInline to enter one or more Prevalent Behavior observed
@@ -64,6 +50,10 @@ class PrevalentBehaviorSightingInline(admin.TabularInline):
     verbose_name_plural = 'Prevalent Behaviors'
 
 
+class PrevalentBehaviorModelAdmin(admin.ModelAdmin):
+    list_per_page = 15
+
+
 # Create a TabularInline to enter one or more Research Activities
 class ResearchActivitySightingInline(admin.TabularInline):
     model = Sighting.Activity.through
@@ -73,6 +63,10 @@ class ResearchActivitySightingInline(admin.TabularInline):
     verbose_name_plural = 'Research Activities'
 
 
+class ResearchActivityModelAdmin(admin.ModelAdmin):
+    list_per_page = 15
+
+
 # Create a TabularInline to enter one or more Images
 class FileSightingInline(admin.TabularInline):
     model = File_Sighting
@@ -80,6 +74,28 @@ class FileSightingInline(admin.TabularInline):
     classes = ['collapse']
     verbose_name = 'Sighting File'
     verbose_name_plural = 'Sighting Files'
+
+
+@admin.action(description='Download files associated with the selected Sightings')
+def download_files(modeladmin, request, queryset):
+    byte_data = io.BytesIO()
+    zip_file = zipfile.ZipFile(byte_data, "w")
+
+    for sighting_obj in queryset:
+        filelist = [file_sighting.file
+                    for file_sighting in File_Sighting.objects.filter(sighting=sighting_obj.pk)]
+
+        for file in filelist:
+            zip_file.write(file.path, str(file))
+    zip_file.close()
+
+    response = HttpResponse(byte_data.getvalue(), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=sighting_files.zip'
+
+    # Print list files in zip_file
+    zip_file.printdir()
+
+    return response
 
 
 # Define a layout for Sighting field, grouping in different fieldset
@@ -121,10 +137,10 @@ class SightingAdmin(ImportExportMixin, admin.ModelAdmin):
     ordering = ['Date']
 
     # Add a list of filter
-    list_filter = ('Date', 'First_Species_Observed')
+    list_filter = ('Date', 'First_Species_Observed', 'Behavior', 'Activity')
 
     # Add a search field by 'Port','Date', 'First_Species_observed'
-    search_fields = ('Port', 'Date',)
+    search_fields = ('Port',)
 
     # Insert a link on field
     list_display_links = ['Port']
@@ -133,11 +149,18 @@ class SightingAdmin(ImportExportMixin, admin.ModelAdmin):
                PrevalentBehaviorSightingInline, ResearchActivitySightingInline,
                FileSightingInline]
 
+    actions = [download_files]
+
+    list_per_page = 15
+
+
+class GalleryModelAdmin(admin.ModelAdmin):
+    list_per_page = 15
+
 
 # Register the model data for admin section
 admin.site.register(Sighting, SightingAdmin)
-admin.site.register(Prevalent_Behavior)
-admin.site.register(Research_Activity)
-admin.site.register(Dolphin_Species)
-admin.site.register(Gallery)
-admin.site.register(File_Sighting, FileSightingModelAdmin)
+admin.site.register(Prevalent_Behavior, PrevalentBehaviorModelAdmin)
+admin.site.register(Research_Activity, ResearchActivityModelAdmin)
+admin.site.register(Dolphin_Species, DolphinSpeciesModelAdmin)
+admin.site.register(Gallery, GalleryModelAdmin)
