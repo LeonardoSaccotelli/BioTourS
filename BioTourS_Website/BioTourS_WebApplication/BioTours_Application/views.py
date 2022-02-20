@@ -1,9 +1,8 @@
-import haversine as gps_distance_library
 from GPSPhoto import gpsphoto
 from django.contrib.gis.geos import Point, MultiPoint
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
-from haversine import Unit
+
 from .filters import SightingFilter
 from .forms import SightingForm, FileSightingForm
 from .models import Sighting, File_Sighting, Gallery
@@ -34,7 +33,6 @@ def InsertSightingView(request):
             list_gps_data_sightings = list()
             index_sightings_with_gps_data = list()
             index_sightings_without_gps_data = list()
-            index_sighting_with_invalid_gps_data = list()
 
             for i in range(0, len(files_list)):
                 try:
@@ -46,81 +44,69 @@ def InsertSightingView(request):
                             list_gps_data_sightings.append(Point(latitude, longitude))
                             index_sightings_with_gps_data.append(i)
                         else:
-                            index_sighting_with_invalid_gps_data.append(i)
+                            index_sightings_without_gps_data.append(i)
                     else:
                         index_sightings_without_gps_data.append(i)
                 except IndexError:
                     index_sightings_without_gps_data.append(i)
 
-            file_with_gps_data = [files_list[index_sightings_with_gps_data[i]]
-                                  for i in range(0, len(index_sightings_with_gps_data))]
-
             file_without_gps_data = [files_list[index_sightings_without_gps_data[i]]
                                      for i in range(0, len(index_sightings_without_gps_data))]
 
-            file_with_invalid_gps_data = [files_list[index_sighting_with_invalid_gps_data[i]]
-                                          for i in range(0, len(index_sighting_with_invalid_gps_data))]
-
             #######################################################
-            # Since we know now which files have valid and invalid
-            # gps data and which files have no gps data, we focus
-            # only on files with valid gps data.
+            # Now we can divide files without gps data from data
+            # with gps data. We will create a new sighting to group
+            # all files without gps data.
             #######################################################
 
-            list_nearest_sighting = list()
-            list_rejected_sighting = list()
+            # Fetch sighting information
+            port = form_sighting.cleaned_data.get('Port')
+            date = form_sighting.cleaned_data.get('Date')
+            notes = form_sighting.cleaned_data.get('Notes')
+
+            # Create a new sighting and the related file sightings for files in which
+            # there aren't gps data
+            num_files_without_gps_data = len(file_without_gps_data)
+            if num_files_without_gps_data > 0:
+                new_sighting = Sighting.objects.create(Port=port, Date=date, Notes=notes)
+                for i in range(0, num_files_without_gps_data):
+                    File_Sighting.objects.create(file=file_without_gps_data[i], sighting=new_sighting)
+
+
+            #######################################################
+            # Since we know now which files have valid gps data
+            # and which files have no gps data, we focus
+            # now on files with valid gps data. The purpose is to
+            # find different clusters based on distance measure and
+            # for each cluster, create a new sighting with related
+            # file sightings.
+            #######################################################
+
+            file_with_gps_data = [files_list[index_sightings_with_gps_data[i]]
+                                  for i in range(0, len(index_sightings_with_gps_data))]
 
             # if we have at least 1 file with valid gps data, we can create a new sighting
             if file_with_gps_data:
-
-                # Fetch sighting information
-                port = form_sighting.cleaned_data.get('Port')
-                date = form_sighting.cleaned_data.get('Date')
-                notes = form_sighting.cleaned_data.get('Notes')
-
                 num_files = len(file_with_gps_data)
 
                 # If we have only one file, then we can use the gps data of it to create a new
-                # data of it to create a new sighting
+                # data of it to create a new sighting. If we have more than one file, then we
+                # compute the centroid of all gps location and this will be used for the
+                # gps sighting
                 if 0 < num_files <= 1:
-                    list_nearest_sighting.append(file_with_gps_data[0])
-                    new_sighting = Sighting.objects.create(Port=port, Date=date, Notes=notes,
-                                                           Latitude_Contact=list_gps_data_sightings[0].x,
-                                                           Longitude_Contact=list_gps_data_sightings[0].y)
-                    File_Sighting.objects.create(file=list_nearest_sighting[0], sighting=new_sighting)
-
+                    latitude = list_gps_data_sightings[0].x
+                    longitude = list_gps_data_sightings[0].y
                 else:
-                    # In this case we have many files with gps data,
-                    # so we have to check if the gps data of each file is in
-                    # the radius we consider with respect to the centroid point
-                    radius = 500
-                    index_nearest_sighting = list()
-                    set_of_index_files_sightings = set(i for i in range(0, num_files))
                     multipoint = MultiPoint(*list_gps_data_sightings)
                     center_point_sighting = multipoint.centroid
+                    latitude = center_point_sighting.x
+                    longitude = center_point_sighting.y
 
-                    center_point = (center_point_sighting.x, center_point_sighting.y)
-
-                    for i in range(0, num_files):
-                        point2 = (list_gps_data_sightings[i].x, list_gps_data_sightings[i].y)
-                        if gps_distance_library.haversine(center_point, point2, unit=Unit.METERS) <= radius:
-                            index_nearest_sighting.append(i)
-
-                    index_nearest_sighting = set(index_nearest_sighting)
-                    index_rejected_sighting = list(set_of_index_files_sightings.difference(index_nearest_sighting))
-                    index_nearest_sighting = list(index_nearest_sighting)
-
-                    list_nearest_sighting = [file_with_gps_data[index_nearest_sighting[i]]
-                                             for i in range(0, len(index_nearest_sighting))]
-
-                    list_rejected_sighting = [file_with_gps_data[index_rejected_sighting[i]]
-                                              for i in range(0, len(index_rejected_sighting))]
-
-                    new_sighting = Sighting.objects.create(Port=port, Date=date, Notes=notes,
-                                                           Latitude_Contact=center_point[0],
-                                                           Longitude_Contact=center_point[1])
-                    for i in range(0, len(list_nearest_sighting)):
-                        File_Sighting.objects.create(file=list_nearest_sighting[i], sighting=new_sighting)
+                new_sighting = Sighting.objects.create(Port=port, Date=date, Notes=notes,
+                                                       Latitude_Contact=latitude,
+                                                       Longitude_Contact=longitude)
+                for i in range(0, num_files):
+                    File_Sighting.objects.create(file=file_with_gps_data[i], sighting=new_sighting)
 
                 submitted = True
 
@@ -130,9 +116,7 @@ def InsertSightingView(request):
             return render(request, 'BioToursApplication/insert_sighting_template.html',
                           {'submitted': submitted,
                            'list_file_without_gps_data': file_without_gps_data,
-                           'list_file_with_invalid_gps_data': file_with_invalid_gps_data,
-                           'list_nearest_sighting': list_nearest_sighting,
-                           'list_rejected_sighting': list_rejected_sighting,
+                           'file_with_gps_data':file_with_gps_data,
                            'form_sighting': form_sighting,
                            'form_file_sighting': form_file_sighting,
                            })
@@ -145,7 +129,7 @@ def InsertSightingView(request):
                   'BioToursApplication/insert_sighting_template.html',
                   {'form_sighting': form_sighting,
                    'form_file_sighting': form_file_sighting,
-                   'submitted': submitted, })
+                   'submitted': submitted })
 
 
 def ShowSightingView(request):

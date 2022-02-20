@@ -26,58 +26,33 @@
     <div class="container" style="padding-top:0.5rem;padding-bottom:2rem;">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 ">
-                <!-- Show a list of files without gps data -->
-                {% if  list_file_without_gps_data %}
-                    <div class="alert alert-danger" role="alert">
-                        <b>Warning! The following files have no GPS data:</b><hr>
-                        <ul>
-                            {% for file_without_gps_data in list_file_without_gps_data %}
-                                <li>{{ file_without_gps_data }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                <!-- Show a list of files wit invalid gps data -->
-                {% if  list_file_with_invalid_gps_data %}
-                    <div class="alert alert-danger" role="alert">
-                        <b>Warning! The following files have invalid GPS data:</b><hr>
-                        <ul>
-                            {% for file_with_invalid_gps_data in list_file_with_invalid_gps_data %}
-                                <li>{{ file_with_invalid_gps_data }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
 
                 {% if submitted %}
-                     <!-- Show a list of files wit valid gps data that are near each other
-                      and which are in the same sighting -->
-                     {% if  list_nearest_sighting %}
-                         <div class="alert alert-success" role="alert">
-                             <b>The following files have been added correctly:</b><hr>
-                             <ul>
-                                 {% for nearest_sighting in list_nearest_sighting %}
-                                     <li>{{ nearest_sighting }}</li>
-                                 {% endfor %}
-                             </ul>
-                         </div>
-                     {% endif %}
+                    <!-- Show a list of files wit valid gps data that are not near each other
+                     and which are in different sighting -->
+                    {% if  file_with_gps_data %}
+                        <div class="alert alert-success" role="alert">
+                            <b>The following files with valid GPS data have been added correctly : </b><hr>
+                            <ul>
+                                {% for correct_files in file_with_gps_data %}
+                                    <li>{{ correct_files }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
 
-                     <!-- Show a list of files wit valid gps data that are not near each other
-                      and which are in different sighting -->
-                     {% if  list_rejected_sighting %}
-                         <div class="alert alert-warning" role="alert">
-                             <b>The following files have GPS data out of accepted rage.
-                                 Insert them in a different sighting:</b><hr>
-                             <ul>
-                                 {% for rejected_sighting in list_rejected_sighting %}
-                                     <li>{{ rejected_sighting }}</li>
-                                 {% endfor %}
-                             </ul>
-                         </div>
-                     {% endif %}
-                 {% endif %}
+                    <!-- Show a list of files without gps data -->
+                    {% if  list_file_without_gps_data %}
+                        <div class="alert alert-info" role="alert">
+                            <b>The following files without GPS have been added correctly:</b><hr>
+                            <ul>
+                                {% for file_without_gps_data in list_file_without_gps_data %}
+                                    <li>{{ file_without_gps_data }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
 
                 <div class="container lead primary-text-color">
                     <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data"
@@ -125,7 +100,7 @@
 {% block extra_js %}
     {{ block.super }}
     <script>
-        $(".alert").delay(7000).slideUp(200, function() {
+        $(".alert").delay(5000).slideUp(200, function() {
             $(this).alert('close');
         });
     </script>
